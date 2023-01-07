@@ -69,8 +69,8 @@ const Header = (props) => {
 						<Image src={logo} alt="Логотип" />
 					</Link>
 					<div className={cl(styles.header__phone, styles.phoneHeader)}>
-						<Link href="tel:+7 (3022) 21-71-50" className={styles.phoneHeader__tel}>
-							+7 (3022) 21-71-50
+						<Link href="tel:+7 (383) 77-77-77" className={styles.phoneHeader__tel}>
+							+7 (383) 77-77-77
 						</Link>
 						<Link href="#callback" className={styles.phoneHeader__callback} data-popup>
 							Перезвоните мне

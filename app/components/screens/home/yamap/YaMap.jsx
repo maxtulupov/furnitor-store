@@ -6,8 +6,8 @@ import { YMaps, Map, Placemark, ZoomControl } from '@pbe/react-yandex-maps';
 
 const YaMap = (props) => {
 	const defaultState = {
-		center: [52.046760, 113.509572],
-		zoom: 13,
+		center: [55.033776, 82.929211],
+		zoom: 12,
 	};
 
 	return (
@@ -18,13 +18,13 @@ const YaMap = (props) => {
 						!props.noneContent && 
 							<div className={cl(styles.mapArea__info, styles.infoMapArea)}>
 							<div className={styles.infoMapArea__content}>
-								<div className={styles.infoMapArea__title}>Адреса магазинов в Чите</div>
+								<div className={styles.infoMapArea__title}>Адреса магазинов в Новосибирске</div>
 								<div className={cl(styles.infoMapArea__contacts, styles.contactsInfoMap)}>
 									<div className={styles.contactsInfoMap__mail}>
-										<Link href="mailto:fortuna-mebel75@mail.ru">fortuna-mebel75@mail.ru</Link>
+										<Link href="mailto:sibir-mebel@sibmebel.ru">sibir-mebel@sibmebel.ru</Link>
 									</div>
 									<div className={cl(styles.contactsInfoMap__phone, styles.phoneInfo)}>
-										<Link href="tel:+7 (3022) 21-71-50" className={styles.phoneInfo__tel}>+7 (3022) 21-71-50</Link>
+										<Link href="tel:+7 (383) 77-77-77" className={styles.phoneInfo__tel}>+7 (383) 77-77-77</Link>
 										<Link href="#callback" className={styles.phoneInfo__callback}>Перезвоните мне</Link>
 									</div>
 								</div>
@@ -35,7 +35,7 @@ const YaMap = (props) => {
 			</div>
 			<YMaps>
 				<Map className={styles.mapArea__map} id="map-area-map" defaultState={defaultState} width="100%" height="100%">
-					<Placemark geometry={[52.043532, 113.492058]} />
+					<Placemark geometry={[55.033776, 82.929211]} />
 					<ZoomControl />
 				</Map>
 			</YMaps>
