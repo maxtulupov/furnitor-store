@@ -1,0 +1,116 @@
+// базовые подключения
+@import "vars";
+@import "mixins";
+@import "fonts";
+@import "settings";
+
+
+.wrapper {
+  width: 100%;
+}
+.wrapper__inner {
+  display: flex;
+  height: 100%;
+}
+.wrapper-main {
+  width: calc(100% - 320px);
+  flex: 0 1 calc(100% - 320px);
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  padding: 110px 0px 0px 0px;
+  @media (max-width:1350px){
+    width: 100%;
+    flex: 0 1 100%;
+    padding: 187px 0px 0px 0px;
+  }
+  @media (max-width:992px){
+    padding: 150px 0px 0px 0px;
+  }
+}
+
+
+.swiper-slide-thumb-active {
+	border: 1px solid #E3302C;
+	opacity: 1 !important;
+}
+.thumbsSliderClass {
+	.swiper-button-prev {
+		width: 94px;
+		height: 30px;
+		position: absolute;
+		top: 0;
+		bottom: unset;
+		left: unset;
+		right: unset;
+		border: none;
+		margin: 0;
+		background: #fff;
+		border-radius: 4px;
+		outline: none;
+		cursor: pointer;
+		&::after {
+			content: '';
+			position: absolute;
+			width: 20px;
+			height: 20px;
+			background: url('../app/assets/img/icons/arrow.svg') 0 0 no-repeat;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%);
+		}
+		svg path {
+			stroke: #1D1D1D;
+		}
+		&.swiper-button-disabled {
+			background: #F8F8F8;
+			border-radius: 0;
+			svg path {
+				stroke: #A0A0A0;
+			}
+		}
+		@media (max-width:767px){
+			display: none;
+		}
+	}
+	.swiper-button-next {
+		width: 94px;
+		height: 30px;
+		position: absolute;
+		bottom: 0;
+		right: unset;
+		margin: 0;
+		left: unset;
+		top: unset;
+		border: none;
+		background: #fff;
+		border-radius: 4px;
+		outline: none;
+		cursor: pointer;
+		&::after {
+			content: '';
+			position: absolute;
+			width: 20px;
+			height: 20px;
+			background: url('../app/assets/img/icons/arrow.svg') 0 0 no-repeat;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%) rotate(180deg);
+		}
+		svg {
+			transform: scale(-1);
+			path {
+				stroke: #1D1D1D;
+			}
+		}
+		&.swiper-button-disabled {
+			background: #F8F8F8;
+			svg path {
+				stroke: #A0A0A0;
+			}
+		}
+		@media (max-width:767px){
+			display: none;
+		}
+	}
+}

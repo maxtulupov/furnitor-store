@@ -1,0 +1,55 @@
+.quantity {
+	width: 158px;
+	height: 64px;
+	display: flex;
+	// border: 1px solid rgba(166, 166, 166, 0.45);
+	// .quantity__button
+	&__button {
+		flex: 0 0 48px;
+		position: relative;
+		cursor: pointer;
+    background: #FFFFFF;
+    border: 1px solid #DEDEDE;
+    @media (any-hover: hover){
+      &:hover {
+        border-color: #E3302C;
+        svg path {
+          stroke: #E3302C;
+        }
+      }
+    }
+		// .quantity__button_plus
+		&_plus {
+      border-radius: 0px 8px 8px 0px;
+      svg {
+        transform: scale(-1);
+      }
+		}
+		// .quantity__button_minus
+		&_minus {
+      border-radius: 8px 0px 0px 8px;
+		}
+    @media (max-width:600px){
+			flex: 0 0 40px;
+		}
+	}
+	// .quantity__input
+	&__input {
+		flex: 1 1 auto;
+		input {
+			height: 100%;
+			width: 100%;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 100%;
+      text-align: center;
+      font-feature-settings: 'pnum' on, 'lnum' on;
+      color: #1D1D1D;
+      outline: none;
+      border-top: 1px solid #DEDEDE;
+      border-bottom: 1px solid #DEDEDE;
+      border-right: none;
+      border-left: none;
+		}
+	}
+}

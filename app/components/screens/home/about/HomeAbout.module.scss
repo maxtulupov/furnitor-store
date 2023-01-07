@@ -1,0 +1,238 @@
+@import "../../../../../styles/mixins/breakpoint";
+
+.about {
+  padding: 0px 0px 120px 0px;
+  // .about__content
+  &__content {
+    display: flex;
+    position: relative;
+    @media (max-width:992px){
+      flex-wrap: wrap;
+    }
+    @include mobile {
+      margin: 0 -15px;
+    }
+  }
+  // .about__left
+  &__left {
+    flex: 0 1 57.4%;
+    width: 57.4%;
+    @media (max-width:1700px){
+      flex: 0 1 48.4%;
+      width: 48.4%;
+    }
+    @media (max-width:992px){
+      flex: 0 1 100%;
+      width: 100%;
+    }
+  }
+  // .about__right
+  &__right {
+    position: absolute;
+    width: 770px;
+    flex: 0 1 770px;
+    right: 0;
+    top: 60px;
+    @media (max-width:1700px){
+      width: 550px;
+      flex: 0 1 550px;
+      top: -40px;
+    }
+    @media (max-width:992px){
+      flex: 0 1 100%;
+      width: 100%;
+      position: relative;
+      top: -80px;
+      margin: 0px 0px -80px 0px;
+    }
+  }
+  @media (max-width:992px){
+    padding: 0px 0px 80px 0px;
+  }
+  @media (max-width:767px){
+    padding: 0px 0px 40px 0px;
+  }
+}
+.leftAbout {
+  // .left-about__img
+  &__img {
+    height: 700px;
+    position: relative;
+    width: 100%;
+    border-radius: 24px;
+    overflow: hidden;
+    img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      object-fit: cover;
+    }
+    @media (max-width:1700px){
+      height: 515px;
+    }
+    @media (max-width:992px){
+      height: 400px;
+    }
+    @include mobile {
+      height: 260px;
+      border-radius: 0;
+    }
+  }
+}
+.rightAbout {
+  background: #FFFFFF;
+  box-shadow: 0px 40px 50px -18px rgba(29, 29, 29, 0.16);
+  border-radius: 24px;
+  padding: 60px 80px 60px 100px;
+  // .right-about__subtitle
+  &__subtitle {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 120%;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    font-feature-settings: 'pnum' on, 'lnum' on;
+    color: #E3302C;
+    margin: 0px 0px 32px 0px;
+    @include mobile {
+      font-size: 14px;
+      margin: 0px 0px 24px 0px;
+    }
+  }
+  // .right-about__title
+  &__title {
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 140%;
+    font-feature-settings: 'pnum' on, 'lnum' on;
+    color: #1D1D1D;
+    margin: 0px 0px 24px 0px;
+    @media (max-width:1700px){
+      font-size: 32px;
+      margin: 0px 0px 20px 0px;
+    }
+    @include mobile {
+      font-size: 16px;
+      margin: 0px 0px 24px 0px;
+    }
+  }
+  // .right-about__text
+  &__text {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 160%;
+    font-feature-settings: 'pnum' on, 'lnum' on;
+    color: #A0A0A0;
+    margin: 0px 0px 40px 0px;
+    @media (max-width:1700px){
+      font-size: 18px;
+      margin: 0px 0px 32px 0px;
+    }
+    @include mobile {
+      font-size: 16px;
+    }
+  }
+  // .right-about__link
+  &__link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 100%;
+    font-feature-settings: 'pnum' on, 'lnum' on;
+    color: #FFFFFF;
+    background: #E3302C;
+    border-radius: 8px;
+    width: 247px;
+    height: 64px;
+    &::after{
+      content: '';
+      display: block;
+      width: 20px;
+      height: 20px;
+      flex: 0 0 20px;
+      margin: 0px 0px 0px 16px;
+      background: url('../../../../assets/img/icons/arrow_wh.svg') 0 0 no-repeat;
+    }
+    @media (any-hover: hover){
+      &:hover {
+        background: #C5201C;
+      }
+    }
+    &:focus {
+      background: #961714;
+    }
+    &:active {
+      background: #961714;
+    }
+    @include mobile {
+      width: 100%;
+      height: 56px;
+      font-size: 16px;
+    }
+  }
+  // .right-about__certif
+  &__certif {
+  }
+  @media (max-width:1700px){
+    padding: 50px 80px 50px 60px;
+  }
+  @media (max-width:992px){
+    padding: 30px 40px;
+  }
+  @include mobile {
+    padding: 80px 15px 32px 15px;
+    border-radius: 0;
+  }
+}
+.certifRightAbout {
+  position: absolute;
+  width: 300px;
+  height: 112px;
+	background: url('../../../../assets/img/about/certif-bg.svg') 0 0 no-repeat;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  top: 100px;
+  left: -260px;
+  padding-bottom: 16px;
+  // .certif-right-about__img
+  &__img {
+    width: 50px;
+    height: 50px;
+    margin: 0px 16px 0px 0px;
+    img {
+      width: 100%;
+    }
+    @media (max-width:992px){
+      width: 42px;
+      height: 42px;
+      margin: 0px 13px 0px 0px;
+    }
+  }
+  // .certif-right-about__text
+  &__text {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 140%;
+    font-feature-settings: 'pnum' on, 'lnum' on;
+    color: #FFFFFF;
+    max-width: 170px;
+    @media (max-width:992px){
+      font-size: 16px;
+    }
+  }
+  @media (max-width:992px){
+    right: 0;
+    left: unset;
+    top: -50px;
+		background: url('../../../../assets/img/about/certif-bg-mobile.svg') 0 0 no-repeat;
+    width: 256px;
+    height: 92px;
+    padding: 0px 0px 10px 30px;
+  }
+}

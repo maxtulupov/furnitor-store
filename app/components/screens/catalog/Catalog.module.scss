@@ -1,0 +1,196 @@
+@import "../../../../styles/mixins/breakpoint";
+
+.catalogPage {
+  padding: 0px 0px 120px 0px;
+  // .catalog-page__top
+  &__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0px 0px 32px 0px;
+    flex-wrap: wrap;
+    gap: 20px;
+    @include mobile {
+      justify-content: center;
+    }
+  }
+  // .catalog-page__title
+  &__title {
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 120%;
+    font-feature-settings: 'pnum' on, 'lnum' on;
+    color: #1D1D1D;
+    margin: 0;
+    @include mobile {
+      font-size: 32px;
+    }
+  }
+  // .catalog-page__filter
+  &__filter {
+  }
+  // .catalog-page__content
+  &__content {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    @media (max-width:1700px){
+      grid-template-columns: repeat(3, 1fr);
+    }
+    @media (max-width:992px){
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @media (max-width:767px){
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+  // .catalog-page__pagination
+  &__pagination {
+  }
+  @include mobile {
+    padding: 0px 0px 60px 0px;
+  }
+}
+.filterCatalog {
+  display: flex;
+  align-items: center;
+  // .filter-catalog__name
+  &__name {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 120%;
+    font-feature-settings: 'pnum' on, 'lnum' on;
+    color: #1D1D1D;
+    margin: 0px 16px 0px 0px;
+  }
+  // .filter-catalog__select
+  &__select {
+  }
+}
+.paginationCatalog {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 0px 0px 0px;
+  // .pagination-catalog__prev
+  &__prev {
+    width: 48px;
+    height: 48px;
+    flex: 0 0 48px;
+    border: 1px solid #DEDEDE;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease 0s;
+    svg path {
+      transition: all 0.3s ease 0s;
+    }
+    @media (any-hover: hover){
+      &:hover {
+        border-color: #E3302C;
+        svg path {
+          stroke: #E3302C;
+        }
+      }
+    }
+    @include mobile {
+      width: 40px;
+      height: 40px;
+      flex: 0 0 40px;
+    }
+  }
+  // .pagination-catalog__list
+  &__list {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    margin: 0 20px;
+    li {
+      width: 48px;
+      height: 48px;
+      flex: 0 0 48px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 100%;
+      text-align: center;
+      font-feature-settings: 'pnum' on, 'lnum' on;
+      color: #1D1D1D;
+      &:not(:last-child) {
+        margin: 0px 4px 0px 0px;
+      }
+      a {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #1D1D1D;
+        border-radius: 8px;
+        transition: all 0.3s ease 0s;
+        @media (any-hover: hover){
+          &:hover {
+            background: #FFFFFF;
+            color: #E3302C;
+          }
+        }
+        @include mobile {
+          width: 40px;
+          height: 40px;
+          flex: 0 0 40px;
+          font-size: 16px;
+        }
+      }
+      &.active {
+        a {
+          color: #E3302C;
+        }
+      }
+      @include mobile {
+        width: 40px;
+        height: 40px;
+        flex: 0 0 40px;
+      }
+    }
+    @include mobile {
+      margin: 10px 0;
+    }
+  }
+  // .pagination-catalog__next
+  &__next {
+    width: 48px;
+    height: 48px;
+    flex: 0 0 48px;
+    border: 1px solid #DEDEDE;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: scaleX(-1);
+    transition: all 0.3s ease 0s;
+    svg path {
+      transition: all 0.3s ease 0s;
+    }
+    @media (any-hover: hover){
+      &:hover {
+        border-color: #E3302C;
+        svg path {
+          stroke: #E3302C;
+        }
+      }
+    }
+    @include mobile {
+      width: 40px;
+      height: 40px;
+      flex: 0 0 40px;
+    }
+  }
+  @include mobile {
+    padding: 40px 0px 0px 0px;
+  }
+}

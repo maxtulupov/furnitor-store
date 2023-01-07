@@ -1,0 +1,127 @@
+{
+	"navi": [
+		{
+			"id": 1,
+			"title": "О компании",
+			"path": "/about",
+			"childrens": [
+				{
+          "id": 11,
+					"title": "Наши преимущества",
+					"path": "/about/our-advantages"
+				},
+				{
+          "id": 12,
+					"title": "Поставщикам",
+					"path": "/about/suppliers"
+				},
+				{
+          "id": 13,
+					"title": "Сертификаты",
+					"path": "/about/certifacates"
+				}
+				,
+				{
+          "id": 14,
+					"title": "Документы",
+					"path": "/about/documents"
+				}
+				,
+				{
+          "id": 15,
+					"title": "Наша команда",
+					"path": "/about/team"
+				}
+			],
+			"gallery": [
+				{
+          "id": 54150,
+					"img": "/img/about/gallery-1.png"
+				},
+				{
+          "id": 541550,
+					"img": "/img/about/gallery-2.png"
+				}
+			]
+		},
+		{
+			"id": 2,
+			"title": "Производители",
+			"path": "/manufs"
+		},
+		{
+			"id": 3,
+			"title": "Контакты",
+			"path": "/contacts"
+		},
+		{
+			"id": 4,
+			"title": "Каталог",
+			"path": "/catalog"
+		}
+	],
+	"productList": [
+		{
+			"id": 1,
+			"title": "Прихожая «Сити»",
+			"img": "/img/catalog/catalog-img-01.jpg",
+			"images": [
+				{
+					"id": "513ad",
+					"url": "/img/product/img01.png"
+				},
+				{
+					"id": "51366ad",
+					"url": "/img/product/img02.png"
+				},
+				{
+					"id": "513dfgad",
+					"url": "/img/product/img03.png"
+				},
+				{
+					"id": "51ad",
+					"url": "/img/product/img04.png"
+				},
+				{
+					"id": "513sad",
+					"url": "/img/product/img01.png"
+				}
+			],
+			"cat": "",
+			"price": "6 200",
+			"slug": "product1"
+		},
+		{
+			"id": 2,
+			"title": "Прихожая «Сити2»",
+			"img": "/img/catalog/catalog-img-02.png",
+			"price": "96 200",
+			"slug": "product2"
+		},
+		{
+			"id": 3,
+			"title": "Прихожая «Сити3»",
+			"img": "/img/catalog/catalog-img-03.png",
+			"price": "10 200",
+			"slug": "product3"
+		},
+		{
+			"id": 4,
+			"title": "Прихожая «Сити3»",
+			"img": "/img/catalog/catalog-img-03.png",
+			"price": "10 200",
+			"slug": "product3"
+		}
+		,
+		{
+			"id": 5,
+			"title": "Прихожая «Сити3»",
+			"img": "/img/catalog/catalog-img-03.png",
+			"price": "10 200",
+			"slug": "product3"
+		}
+	],
+	"catList": [
+		
+	]
+}

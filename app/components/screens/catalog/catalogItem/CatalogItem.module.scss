@@ -1,0 +1,196 @@
+@import "../../../../../styles/mixins/breakpoint";
+
+.itemCatalog {
+
+  &__content {
+    padding: 16px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    @include mobile {
+      padding: 12px;
+    }
+  }
+  // .item-catalog__top
+  &__top {
+    position: relative;
+    height: 280px;
+    margin: 0px 0px 24px 0px;
+    border-radius: 12px;
+    overflow: hidden;
+    @media (any-hover: hover){
+      &:hover {
+        .item-catalog__zoom {
+          opacity: 1;
+        }
+      }
+    }
+    @media (max-width:1700px){
+      height: 250px;
+    }
+    @include mobile {
+      height: 200px;
+      margin: 0px 0px 20px 0px;
+    }
+  }
+  // .item-catalog__photo
+  &__photo {
+    position: relative;
+    height: 100%;
+    display: block;
+    cursor: pointer;
+    img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      object-fit: cover;
+    }
+    &::before {
+			content: '';
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			background: url('../../../../assets/img/icons/zoom-in.svg') center center no-repeat, linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4));
+			z-index: 2;
+			border-radius: 8px;
+			opacity: 0;
+			transition: all 0.3s ease 0s;
+      pointer-events: none;
+		}
+    @media (any-hover: hover){
+      &:hover {
+        &::before {
+          opacity: 1;
+        }
+      }
+    }
+  }
+  // .item-catalog__title
+  &__title {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 140%;
+    font-feature-settings: 'pnum' on, 'lnum' on;
+    color: #1D1D1D;
+    margin: 0px 0px 40px 0px;
+    a {
+      color: inherit;
+    }
+    @media (any-hover: hover){
+      &:hover {
+        color: #E3302C;
+      }
+    }
+    @include mobile {
+      font-size: 18px;
+      margin: 0px 0px 24px 0px;
+    }
+  }
+  // .item-catalog__form
+  &__form {
+    margin-top: auto;
+  }
+  // .item-catalog__price-block
+  &__priceBlock {
+  }
+  border-right: 1px solid #EBEBEB;
+  border-bottom: 1px solid #EBEBEB;
+  &:nth-of-type(1) {
+    border-top: 1px solid #EBEBEB;
+    border-left: 1px solid #EBEBEB;
+  }
+  @media (min-width:1701px){
+    &:nth-of-type(2) {
+      border-top: 1px solid #EBEBEB;
+    }
+    &:nth-of-type(3) {
+      border-top: 1px solid #EBEBEB;
+    }
+    &:nth-of-type(4) {
+      border-top: 1px solid #EBEBEB;
+    }
+    &:nth-of-type(4n + 1) {
+      border-left: 1px solid #EBEBEB;
+    }
+  }
+  @media (max-width:1700px){
+    &:nth-of-type(2) {
+      border-top: 1px solid #EBEBEB;
+    }
+    &:nth-of-type(3) {
+      border-top: 1px solid #EBEBEB;
+    }
+    &:nth-of-type(3n + 1) {
+      border-left: 1px solid #EBEBEB;
+    }
+  }
+  @media (max-width:992px){
+    &:nth-of-type(2) {
+      border-top: 1px solid #EBEBEB;
+    }
+    &:nth-of-type(odd) {
+      border-left: 1px solid #EBEBEB;
+    }
+  }
+  @media (max-width:767px){
+    &:nth-of-type(2n) {
+      border-left: 1px solid #EBEBEB;
+    }
+  }
+}
+.priceItem {
+  display: flex;
+  width: 100%;
+	cursor: pointer;
+  // .price-item__price
+  &__price {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 100%;
+    text-align: center;
+    font-feature-settings: 'pnum' on, 'lnum' on;
+    color: #1D1D1D;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 56px;
+    border: 1px solid #DEDEDE;
+    border-radius: 8px 0 0 8px;
+    border-right: none;
+    @include mobile {
+      font-size: 20px;
+      height: 52px;
+    }
+  }
+  // .price-item__buy
+  &__buy {
+    width: 72px;
+    flex: 0 0 72px;
+    height: 56px;
+    background: #E3302C;
+    border-radius: 0px 8px 8px 0px;
+    outline: none;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    @include mobile {
+      height: 52px;
+      width: 68px;
+      flex: 0 0 68px;
+    }
+  }
+  @media (any-hover: hover){
+    &:hover {
+      .priceItem__price {
+        border-color: #E3302C;
+      }
+    }
+  }
+}
