@@ -16,15 +16,17 @@ const Layout = ({ children, naviLinks, isModal, setModal }) => {
 					<Header naviLinks={naviLinks} setIsCatalogOpen={setIsCatalogOpen} isCatalogOpen={isCatalogOpen} />
 						{children}
 					<Footer naviLinks={naviLinks} />
-					<ProductPopUp
-						isVisible={isModal.open}
-						title={isModal.title}
-						slug={isModal.slug}
-						price={isModal.price}
-						images={isModal.images}
-						img={isModal.img}
-						onClose={() => setModal({...isModal, open: false})}
-					/>
+          {isModal &&
+            <ProductPopUp
+              isVisible={isModal.open}
+              title={isModal.title}
+              slug={isModal.slug}
+              price={isModal.price}
+              images={isModal.images}
+              img={isModal.img}
+              onClose={() => setModal({...isModal, open: false})}
+            />
+          }
 				</div>
 			</div>
 		</div>

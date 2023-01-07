@@ -13,7 +13,7 @@ const Footer = (props) => {
 		<footer className={styles.footer}>
 			<div className={cl("container", styles.footer__content)}>
 			<Link href="/" className={styles.footer__logo}>
-			<Image src={logo} alt="Логотип" />
+			  <Image src={logo} alt="Логотип" />
 			</Link>
 				<div className={cl(styles.footer__menu, styles.menuFooter)}>
 					<ul className={styles.menuFooter__list}>
