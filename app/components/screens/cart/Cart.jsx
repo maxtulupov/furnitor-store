@@ -11,7 +11,7 @@ const Cart = (props) => {
 	const [isModal, setModal] = useState({ open: false, title: 'kek', slug: 'test', price: '9999', images: [], img: '/img/about/about-image.png'});
 
 	return (
-		<Layout naviLinks={props.naviLinks} isModal={isModal} setModal={setModal}>
+		<Layout naviLinks={props.naviLinks} catList={props.catList} isModal={isModal} setModal={setModal}>
 			<main className="main">
 				<Breadcrumbs pageTitle="Корзина" />
 				<section className={styles.cartPage}>

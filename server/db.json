@@ -122,6 +122,47 @@
 		}
 	],
 	"catList": [
-		
+		{
+      "id": 1,
+      "title": "Офисная мебель",
+      "slug": "ofis-mebel",
+      "icon": "/app/assets/img/left-menu/catalog-icon_1.svg",
+      "childrens": [
+        {
+          "id": 11,
+          "title": "Диваны",
+          "childSlug": "divani"
+        },
+        {
+          "id": 12,
+          "title": "Столы",
+          "childSlug": "tables"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Мебель для дома",
+      "slug": "home-mebel",
+      "icon": "../../assets/img/catalog/catalog-img-02.jpg",
+      "childrens": [
+        {
+          "id": 22,
+          "title": "Диваны",
+          "childSlug": "divani"
+        },
+        {
+          "id": 23,
+          "title": "Столы",
+          "childSlug": "tables"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Мягкая мебель",
+      "slug": "myg-mebel",
+      "icon": "../../assets/img/catalog/catalog-img-03.jpg"
+    }
 	]
 }

@@ -4,14 +4,14 @@ import Header from "../header/Header"
 import Footer from "../footer/Footer"
 import ProductPopUp from "../ui/popups/ProductPopUp"
 
-const Layout = ({ children, naviLinks, isModal, setModal }) => {
+const Layout = ({ children, naviLinks, isModal, setModal, catList }) => {
 
 	const [isCatalogOpen, setIsCatalogOpen] = useState(false);
 
 	return (
 		<div className="wrapper">
 			<div className="wrapper__inner">
-				<Aside isCatalogOpen={isCatalogOpen} setIsCatalogOpen={setIsCatalogOpen} />
+				<Aside isCatalogOpen={isCatalogOpen} setIsCatalogOpen={setIsCatalogOpen} catList={catList} />
 				<div className="wrapper-main">
 					<Header naviLinks={naviLinks} setIsCatalogOpen={setIsCatalogOpen} isCatalogOpen={isCatalogOpen} />
 						{children}

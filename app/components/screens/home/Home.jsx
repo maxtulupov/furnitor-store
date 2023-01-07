@@ -15,7 +15,7 @@ const Home = (props) => {
 	const [isModal, setModal] = useState({ open: false, title: 'kek', slug: 'test', price: '9999', images: [], img: '/img/about/about-image.png'});
 
 	return (
-		<Layout naviLinks={props.naviLinks} isModal={isModal} setModal={setModal}>
+		<Layout naviLinks={props.naviLinks} isModal={isModal} setModal={setModal} catList={props.catList}>
 			<main className="main">
 				<section className={styles.topBanner}>
 					<div className="container">

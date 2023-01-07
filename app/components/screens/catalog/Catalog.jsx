@@ -18,12 +18,12 @@ const Catalog = (props) => {
 	const [isModal, setModal] = useState({ open: false, title: 'kek', slug: 'test', price: '9999', images: [], img: '/img/about/about-image.png'});
 
 	return (
-		<Layout naviLinks={props.naviLinks} isModal={isModal} setModal={setModal} >
+		<Layout naviLinks={props.naviLinks} isModal={isModal} setModal={setModal} catList={props.catList} >
 			<main className="main">
 				<section className={styles.catalogPage}>
 					<div className="container">
 						<div className={styles.catalogPage__top}>
-							<h1 className={styles.catalogPage__title}>Каталог</h1>
+							<h1 className={styles.catalogPage__title}>{props.catInfo.title}</h1>
 							<div className={cl(styles.catalogPage__filter, styles.filterCatalog)}>
 								<div className={styles.filterCatalog__name}>Сортировка:</div>
 								{/* <Select options={options} className={styles.filterCatalog__select} /> */}
