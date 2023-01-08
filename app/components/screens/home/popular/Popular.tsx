@@ -1,7 +1,16 @@
 import styles from "../popular/Popular.module.scss"
 import CatalogItem from "../../catalog/catalogItem/CatalogItem"
+import { FC } from 'react';
+import { IsModal, OneProduct } from '../../../../../types';
 
-const Popular = ({productsList, isModal, setModal}) => {
+interface PopularProps {
+  productsList: OneProduct[],
+  isModal: IsModal,
+  setModal: () => IsModal
+}
+
+
+const Popular:FC = ({productsList, isModal, setModal}: PopularProps) => {
 	return (
 		<section className={styles.popular}>
 			<div className="container">

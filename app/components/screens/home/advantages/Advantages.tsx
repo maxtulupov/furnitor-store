@@ -1,7 +1,15 @@
 import styles from "../advantages/Advantages.module.scss"
-import OneAdv from "./oneAdv"
+import OneAdv from "./OneAdv"
+import { FC } from 'react';
 
-const advantagesData = [
+interface DataAdvantages {
+  id: number,
+  title: string,
+  number: string,
+  img: string,
+}
+
+const advantagesData: DataAdvantages[] = [
 	{
 		"id": 1,
 		"title": "Товаров в ассортименте",
@@ -21,7 +29,8 @@ const advantagesData = [
 		"img": "/img/advantages/warehouse.svg"
 	}
 ]
-const Advantages = () => {
+
+const Advantages: FC = () => {
 
 	return (
 		<section className={styles.advantages}>

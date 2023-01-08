@@ -3,9 +3,15 @@ import cl from "classnames"
 import Image from "next/image"
 import Link from "next/link"
 import { YMaps, Map, Placemark, ZoomControl } from '@pbe/react-yandex-maps';
+import { FC } from 'react';
 
-const YaMap = (props) => {
-	const defaultState = {
+interface DefaultState {
+  center: number[],
+  zoom: number
+}
+
+const YaMap: FC = ({ noneContent }: any) => {
+	const defaultState: DefaultState = {
 		center: [55.033776, 82.929211],
 		zoom: 12,
 	};
@@ -15,7 +21,7 @@ const YaMap = (props) => {
 			<div className={styles.mapArea__content}>
 				<div className="container">
 					{
-						!props.noneContent && 
+						!noneContent && 
 							<div className={cl(styles.mapArea__info, styles.infoMapArea)}>
 							<div className={styles.infoMapArea__content}>
 								<div className={styles.infoMapArea__title}>Адреса магазинов в Новосибирске</div>

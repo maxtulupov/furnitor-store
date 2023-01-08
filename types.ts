@@ -6,3 +6,12 @@ export interface IsModal {
   images: string[];
   img: string;
 }
+
+export interface OneProduct {
+  id: number,
+  title: string,
+  slug: string,
+  img: string,
+  price: string,
+  images: string
+}

@@ -4,9 +4,9 @@ import Image from "next/image"
 import Link from "next/link"
 import AboutImage from "../../../../assets/img/about/about-image.png"
 import CertifIcon from "../../../../assets/img/icons/certificate-icon.svg"
+import { FC } from "react"
 
-const HomeAbout = () => {
-
+const HomeAbout: FC = () => {
 	return (
 		<section className={styles.about}>
 			<div className="container">
