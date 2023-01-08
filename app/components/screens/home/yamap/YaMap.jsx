@@ -25,7 +25,7 @@ const YaMap = (props) => {
 									</div>
 									<div className={cl(styles.contactsInfoMap__phone, styles.phoneInfo)}>
 										<Link href="tel:+7 (383) 77-77-77" className={styles.phoneInfo__tel}>+7 (383) 77-77-77</Link>
-										<Link href="#callback" className={styles.phoneInfo__callback}>Перезвоните мне</Link>
+										<div className={styles.phoneInfo__callback}>Перезвоните мне</div>
 									</div>
 								</div>
 							</div>

@@ -21,7 +21,7 @@ const Product = (props) => {
 
 
 	return (
-		<Layout naviLinks={props.naviLinks} isModal={isModal} setModal={setModal}>
+		<Layout naviLinks={props.naviLinks} isModal={isModal} setModal={setModal} catList={props.catList}>
 			<main className="main">
 				<Breadcrumbs pageTitle={product.title} />
 				<section className={styles.productPage}>

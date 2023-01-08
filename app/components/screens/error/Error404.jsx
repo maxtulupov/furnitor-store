@@ -4,7 +4,7 @@ import Breadcrumbs from "../../ui/breadcrumbs/Breadcrumbs"
 
 const Error404 = (props) => {
 	return (
-		<Layout naviLinks={props.naviLinks}>
+		<Layout naviLinks={props.naviLinks} catList={props.catList}>
 			<main className="main">
         <Breadcrumbs pageTitle="Ошибка 404" />
 				<section className={styles.errorSection}>

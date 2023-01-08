@@ -23,7 +23,7 @@ const Catalog = (props) => {
 				<section className={styles.catalogPage}>
 					<div className="container">
 						<div className={styles.catalogPage__top}>
-							<h1 className={styles.catalogPage__title}>{props.catInfo.title}</h1>
+							<h1 className={styles.catalogPage__title}>{props.catInfo ? props.catInfo.title : 'Каталог'}</h1>
 							<div className={cl(styles.catalogPage__filter, styles.filterCatalog)}>
 								<div className={styles.filterCatalog__name}>Сортировка:</div>
 								{/* <Select options={options} className={styles.filterCatalog__select} /> */}

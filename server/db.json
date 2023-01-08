@@ -87,9 +87,9 @@
 					"url": "/img/product/img01.png"
 				}
 			],
-			"cat": "",
 			"price": "6 200",
-			"slug": "product1"
+			"slug": "product1",
+      "cat": "ofis-mebel"
 		},
 		{
 			"id": 2,

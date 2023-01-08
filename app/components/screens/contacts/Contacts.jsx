@@ -7,7 +7,7 @@ import Link from "next/link";
 
 const Contacts = (props) => {
 	return (
-		<Layout naviLinks={props.naviLinks}>
+		<Layout naviLinks={props.naviLinks} catList={props.catList}>
 			<main className="main">
 				<Breadcrumbs pageTitle="Контакты" />
 				<section className={styles.contactsPage}>

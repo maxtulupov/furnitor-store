@@ -15,7 +15,7 @@ import lgZoom from 'lightgallery/plugins/zoom';
 
 const About = (props) => {
 	return (
-		<Layout naviLinks={props.naviLinks}>
+		<Layout naviLinks={props.naviLinks} catList={props.catList}>
 			<main className="main">
 				<Breadcrumbs pageTitle="О компании" />
 				<section className={styles.singlePage}>

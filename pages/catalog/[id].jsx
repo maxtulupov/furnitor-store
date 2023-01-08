@@ -30,14 +30,17 @@ export const getStaticProps = async (context) => {
 	const response3 = await fetch(`${nextConfig.env.API_URL}/productList/`);
 	const data3 = await response3.json();
 
+  const response4 = await fetch(`${nextConfig.env.API_URL}/catList`);
+	const data4 = await response4.json();
+
 	return {
-		props: { naviLinks: data, productInfo: data2[0], productList: data3}
+		props: { naviLinks: data, productInfo: data2[0], productList: data3, catList: data4 }
 	}
 };
 
 
 const ProductPage = (data) => {
-	return <Product naviLinks={data.naviLinks} productInfo={data.productInfo} productList={data.productList} />
+	return <Product naviLinks={data.naviLinks} productInfo={data.productInfo} productList={data.productList} catList={data.catList} />
 };
 
 export default ProductPage;

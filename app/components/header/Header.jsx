@@ -72,9 +72,9 @@ const Header = (props) => {
 						<Link href="tel:+7 (383) 77-77-77" className={styles.phoneHeader__tel}>
 							+7 (383) 77-77-77
 						</Link>
-						<Link href="#callback" className={styles.phoneHeader__callback} data-popup>
+						<div className={styles.phoneHeader__callback} data-popup>
 							Перезвоните мне
-						</Link>
+						</div>
 					</div>
 					<div className={cl(styles.header__search, styles.searchHeader)}>
 						<form action="" className={styles.searchHeader__form}>
