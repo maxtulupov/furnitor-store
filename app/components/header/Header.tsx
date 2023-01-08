@@ -1,10 +1,12 @@
 import Link from "next/link"
-import { React, useEffect, useState, useRef } from "react"
+import { FC, useEffect, useState, useRef } from "react"
 import logo from "../../assets/img/logo.svg"
 import Image from "next/image"
 import styles from "../header/Header.module.scss"
 import cl from "classnames"
 import SearchIcon from "../ui/icons/SearchIcon"
+
+
 
 const Header = (props) => {
 	const naviLinks = props.naviLinks;

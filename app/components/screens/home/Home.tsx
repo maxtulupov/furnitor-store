@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { React, useState } from "react"
+import { useState } from "react"
 import styles from "../home/Home.module.scss"
 import topBannerImg from "../../../assets/img/top-banner/top-banner-1.png"
 import topBannerImgMobile from "../../../assets/img/top-banner/top-banner-1__mob.png"

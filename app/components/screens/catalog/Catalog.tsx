@@ -1,7 +1,7 @@
 import { React, useState } from "react"
 import styles from "../../screens/catalog/Catalog.module.scss"
 import Layout from "../../layout/Layout"
-import YaMap from "../../screens/home/yamap/YaMap"
+import YaMap from "../home/yamap/YaMap"
 import CatalogItem from "./catalogItem/CatalogItem"
 import cl from "classnames"
 import Pagi from "../../ui/pagi/Pagi"
