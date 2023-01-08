@@ -16,7 +16,7 @@ interface HomeProps {
   isModal: IsModal,
   setModal: (IsModal: IsModal) => void,
   catList: string,
-  productsList: OneProduct[]
+  productsList: OneProduct[],
 }
 
 const Home: FC<HomeProps> = (props) => {
@@ -28,7 +28,7 @@ const Home: FC<HomeProps> = (props) => {
 				<section className={styles.topBanner}>
 					<div className="container">
 						<Link href="" className={styles.topBannerItem}>
-							<Image srcSet={topBannerImgMobile.src + ' 360w' + ', ' + topBannerImg.src + ' 1000w'} src={topBannerImg} alt="TopBanner" />
+							<Image src={topBannerImg} alt="TopBanner" />
 						</Link>
 					</div>
 				</section>

@@ -9,7 +9,7 @@ interface OneAdvProps {
   img: string
 }
 
-const OneAdv: FC = ({ title, number, img }: OneAdvProps) => {
+const OneAdv: FC<OneAdvProps> = ({ title, number, img }) => {
 
 	return (
 		<div className={cl(styles.advantages__item, styles.itemAdvantages)}>
