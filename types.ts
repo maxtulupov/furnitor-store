@@ -13,5 +13,5 @@ export interface OneProduct {
   slug: string,
   img: string,
   price: string,
-  images: string
+  images: string[]
 }

@@ -6,11 +6,11 @@ import { IsModal, OneProduct } from '../../../../../types';
 interface PopularProps {
   productsList: OneProduct[],
   isModal: IsModal,
-  setModal: () => IsModal
+  setModal: (IsModal: IsModal) => void,
 }
 
 
-const Popular:FC = ({productsList, isModal, setModal}: PopularProps) => {
+const Popular:FC<PopularProps> = ({productsList, isModal, setModal}) => {
 	return (
 		<section className={styles.popular}>
 			<div className="container">

@@ -3,11 +3,20 @@ import Image from "next/image"
 import cl from "classnames"
 import Link from "next/link"
 import cartIcon from "../../../../assets/img/icons/cart-icon_wh.svg"
-import { useState } from "react"
-import ProductPopUp from "../../../ui/popups/ProductPopUp"
+import { FC } from 'react';
+import { IsModal } from '../../../../../types';
 
-const CatalogItem = (props) => {
-	// const [isModal, setModal] = useState(false);
+interface CatalogItemProps {
+  title: string,
+  img: string,
+  images: string[],
+  slug: string,
+  price: string,
+  isModal: IsModal,
+  setModal: (IsModal: IsModal) => void,
+}
+
+const CatalogItem:FC<CatalogItemProps> = (props) => {
 
 	return (
 		<article className={styles.itemCatalog}>
@@ -36,15 +45,6 @@ const CatalogItem = (props) => {
 					</div>
 				</form>
 			</div>
-			{/* <ProductPopUp
-				isVisible={isModal}
-				title={props.title}
-				slug={props.slug}
-				price={props.price}
-				images={props.images}
-				img={props.img}
-				onClose={() => setModal(false)}
-			/> */}
 		</article>
 	)
 }

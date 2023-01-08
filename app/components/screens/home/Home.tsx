@@ -9,17 +9,17 @@ import Popular from "./popular/Popular"
 import Layout from "../../layout/Layout"
 import HomeAbout from "./about/HomeAbout"
 import YaMap from "./yamap/YaMap"
-import { IsModal } from "../../../../types"
+import { IsModal, OneProduct } from '../../../../types';
 
 interface HomeProps {
   naviLinks: string[],
   isModal: IsModal,
-  setModal: () => IsModal,
+  setModal: (IsModal: IsModal) => void,
   catList: string,
-  productsList: string
+  productsList: OneProduct[]
 }
 
-const Home: FC = (props: HomeProps) => {
+const Home: FC<HomeProps> = (props) => {
 	const [isModal, setModal] = useState<IsModal>({ open: false, title: 'kek', slug: 'test', price: '9999', images: [], img: '/img/about/about-image.png'});
 
 	return (
