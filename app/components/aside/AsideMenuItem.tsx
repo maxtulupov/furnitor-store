@@ -1,16 +1,17 @@
 import Link from "next/link"
-import { React, useState } from "react"
+import { useState, FC } from 'react';
 import Image from "next/image"
 import styles from "../aside/Aside.module.scss"
 import cl from "classnames"
 import catalogImg from "../../assets/img/left-menu/catalog-icon_1.svg"
+import { CatListAside } from "../../../types";
 
 
-const AsideMenuItem = ({ id, childrens, slug, title }) => {
+const AsideMenuItem:FC<CatListAside> = ({ id, childrens, slug, title }) => {
 
-	const [isOpen, setIsOpen] = useState(false);
+	const [isOpen, setIsOpen] = useState<Boolean>(false);
 
-	const handleSubMenu = (event) => {
+	const handleSubMenu = (event: any) => {
 		event.preventDefault();
 
 		setIsOpen(!isOpen);

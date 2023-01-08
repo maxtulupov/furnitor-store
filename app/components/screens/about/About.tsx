@@ -12,8 +12,14 @@ import 'lightgallery/scss/lg-zoom.scss';
 import 'lightgallery/scss/lg-thumbnail.scss';
 import lgThumbnail from 'lightgallery/plugins/thumbnail';
 import lgZoom from 'lightgallery/plugins/zoom';
+import { FC } from "react";
 
-const About = (props) => {
+interface AboutProps {
+  naviLinks: string[],
+  catList: string
+}
+
+const About: FC<AboutProps> = (props) => {
 	return (
 		<Layout naviLinks={props.naviLinks} catList={props.catList}>
 			<main className="main">

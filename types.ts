@@ -15,3 +15,17 @@ export interface OneProduct {
   price: string,
   images: string[]
 }
+
+export interface CatListAside {
+  id: number,
+  title: string,
+  slug: string,
+  icon: string,
+  childrens: CatListAsideSubItem[]
+}
+
+interface CatListAsideSubItem {
+  id: number,
+  title: string,
+  childSlug: string
+}

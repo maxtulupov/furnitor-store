@@ -1,12 +1,21 @@
-import {React, useState} from "react"
+import { useState, FC } from 'react';
 import Aside from "../aside/Aside"
 import Header from "../header/Header"
 import Footer from "../footer/Footer"
 import ProductPopUp from "../ui/popups/ProductPopUp"
+import { CatListAside, IsModal } from '../../../types';
 
-const Layout = ({ children, naviLinks, isModal, setModal, catList }) => {
+interface LayoutProps {
+  children: JSX.Element,
+  naviLinks: string[],
+  isModal?: IsModal,
+  setModal?: (IsModal: IsModal) => void,
+  catList: CatListAside[]
+}
 
-	const [isCatalogOpen, setIsCatalogOpen] = useState(false);
+const Layout:FC<LayoutProps> = ({ children, naviLinks, isModal, setModal, catList }) => {
+
+	const [isCatalogOpen, setIsCatalogOpen] = useState<Boolean>(false);
 
 	return (
 		<div className="wrapper">
