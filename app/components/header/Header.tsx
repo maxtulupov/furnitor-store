@@ -7,8 +7,9 @@ import cl from "classnames"
 import SearchIcon from "../ui/icons/SearchIcon"
 
 
+{/* <Header naviLinks={naviLinks} setIsCatalogOpen={setIsCatalogOpen} isCatalogOpen={isCatalogOpen} /> */}
 
-const Header = (props) => {
+const Header:FC = (props) => {
 	const naviLinks = props.naviLinks;
 
 	const [offset, setOffset] = useState(0);

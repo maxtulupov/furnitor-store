@@ -1,3 +1,4 @@
+import { NextPage } from 'next';
 import Home from '../app/components/screens/home/Home';
 import nextConfig from '../next.config';
 
@@ -16,7 +17,7 @@ export const getStaticProps = async () => {
 	}
 };
 
-const HomePage = (data) => {
+const HomePage:NextPage = (data: any) => {
 	return <Home naviLinks={data.naviLinks} productsList={data.productsList} catList={data.catList} />
 };
 
