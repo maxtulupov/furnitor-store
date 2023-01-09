@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Navigation, Pagination, Thumbs, Controller } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -13,8 +13,20 @@ import Quantity from "../../ui/quantity/Quantity";
 import Image from "next/image";
 import Breadcrumbs from "../../ui/breadcrumbs/Breadcrumbs";
 import Similar from "./similar/Similar";
+import { FC } from 'react';
+import { CatListAside, IsModal, NaviLinks, OneProduct } from "../../../../types";
 
-const Product = (props) => {
+interface ProductProps {
+  naviLinks: NaviLinks[],
+  isModal: IsModal
+  setModal: (IsModal: IsModal) => void,
+  catList: CatListAside[],
+  productList: OneProduct[],
+  productInfo: OneProduct,
+  sizes: string
+}
+
+const Product:FC<ProductProps> = (props) => {
 	const product = props.productInfo;
 	const [thumbsSwiper, setThumbsSwiper] = useState(null);
 	const [isModal, setModal] = useState({ open: false, title: 'kek', slug: 'test', price: '9999', images: [], img: '/img/about/about-image.png'});
@@ -54,7 +66,7 @@ const Product = (props) => {
 									>
 										{product.images && product.images.map(img => (
 											<SwiperSlide key={img.id} className={cl(styles.thumbnails__slide, "swiper-slide")}>
-												<Image src={img.url} sizes={94} alt={product.title} fill />
+												<Image src={img.url} sizes="94" alt={product.title} fill />
 											</SwiperSlide>
 										))}
 									</Swiper>
@@ -83,7 +95,7 @@ const Product = (props) => {
 									>
 										{product.images && product.images.map(img => (
 											<SwiperSlide key={img.id} className={cl(styles.big__slide, "swiper-slide")}>
-												<Image src={img.url} sizes={596} alt={product.title} fill />
+												<Image src={img.url} sizes="596" alt={product.title} fill />
 											</SwiperSlide>
 										 ))}
 									</Swiper>
@@ -113,7 +125,7 @@ const Product = (props) => {
 								<div className={styles.productPage__price}>
 									<span>{product.price}</span> ₽
 								</div>
-								<form accept="" method="" className={styles.productPage__form}>
+								<form method="" className={styles.productPage__form}>
 									<Quantity />
 									<button className={styles.productPage__buy}>В корзину</button>
 								</form>

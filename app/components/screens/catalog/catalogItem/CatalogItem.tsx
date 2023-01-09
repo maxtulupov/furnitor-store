@@ -4,12 +4,12 @@ import cl from "classnames"
 import Link from "next/link"
 import cartIcon from "../../../../assets/img/icons/cart-icon_wh.svg"
 import { FC } from 'react';
-import { IsModal } from '../../../../../types';
+import { IsModal, OneProductImages } from '../../../../../types';
 
 interface CatalogItemProps {
   title: string,
   img: string,
-  images: string[],
+  images: OneProductImages[],
   slug: string,
   price: string,
   isModal: IsModal,

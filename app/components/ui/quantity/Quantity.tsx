@@ -1,9 +1,13 @@
 import styles from "../quantity/Quantity.module.scss"
 import cl from "classnames"
-import { useState } from "react";
+import { useState, FC } from 'react';
 
-const Quantity = ({addStyle}) => {
-	const [inputValue, setInputValue] = useState(1);
+interface Quantity {
+  addStyle?: string
+}
+
+const Quantity:FC<Quantity> = ({ addStyle }) => {
+	const [inputValue, setInputValue] = useState<number>(1);
 
 	return (
 		<div className={cl(styles.quantity, addStyle ? addStyle : styles.productPage__quantity)}>

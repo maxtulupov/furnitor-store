@@ -4,8 +4,16 @@ import styles from "../Contacts/Contacts.module.scss"
 import cl from "classnames";
 import YaMap from "../home/yamap/YaMap";
 import Link from "next/link";
+import { FC } from 'react';
+import { CatListAside, NaviLinks } from "../../../../types";
 
-const Contacts = (props) => {
+interface ContactsProps {
+  naviLinks: NaviLinks[],
+  catList: CatListAside[],
+  noneContent: Boolean
+}
+
+const Contacts:FC<ContactsProps> = (props) => {
 	return (
 		<Layout naviLinks={props.naviLinks} catList={props.catList}>
 			<main className="main">

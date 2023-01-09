@@ -19,7 +19,7 @@ interface HomeProps {
   productsList: OneProduct[],
 }
 
-const Home: FC<HomeProps> = (props) => {
+const Home:FC<HomeProps> = (props) => {
 	const [isModal, setModal] = useState<IsModal>({ open: false, title: 'kek', slug: 'test', price: '9999', images: [], img: '/img/about/about-image.png'});
 
 	return (

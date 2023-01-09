@@ -1,8 +1,9 @@
 import styles from "../pagi/Pagi.module.scss"
 import cl from "classnames"
 import Link from "next/link"
+import { FC } from 'react';
 
-const Pagi = () => {
+const Pagi:FC = () => {
 
 	return (
 		<div className={cl(styles.catalogPage__pagination, styles.paginationCatalog)}>

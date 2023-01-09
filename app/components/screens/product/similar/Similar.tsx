@@ -6,8 +6,17 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import cl from "classnames";
 import CatalogItem from "../../catalog/catalogItem/CatalogItem";
+import { FC } from 'react';
+import { IsModal, OneProduct } from "../../../../../types";
 
-const Similar = ({productsList, isModal, setModal}) => {
+interface SimilarProps {
+  productsList: OneProduct[],
+  isModal: IsModal,
+  setModal: (IsModal: IsModal) => void,
+}
+
+
+const Similar:FC<SimilarProps> = ({productsList, isModal, setModal}) => {
 	return (
 		<section className={styles.similarProducts}>
 			<div className="container">

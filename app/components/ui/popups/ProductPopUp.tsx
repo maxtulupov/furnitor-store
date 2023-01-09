@@ -1,6 +1,6 @@
 import styles from "../popups/ProductPopUp.module.scss"
-import cl from "classnames";
-import { React, useState, useEffect } from "react";
+import cl, { Argument } from "classnames";
+import { useState, useEffect, FC } from 'react';
 import { Navigation, Pagination, Thumbs, Controller } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -9,10 +9,27 @@ import 'swiper/css/pagination';
 import Quantity from "../quantity/Quantity";
 import Link from "next/link";
 import Image from "next/image";
+import { OneProductImages } from "../../../../types";
 
-const ProductPopUp = ({ isVisible = false, title, slug, price, images, img, onClose }) => {
+interface ProductPopUpProps {
+  isVisible: boolean,
+  title: string,
+  slug: string,
+  price: string,
+  images: OneProductImages[],
+  img: string,
+  onClose: () => void,
+  addStyle: string
+}
 
-	const [thumbsSwiper, setThumbsSwiper] = useState(null);
+interface KeyDownHandler {
+  key?: string,
+  target?: Document
+}
+
+const ProductPopUp:FC<ProductPopUpProps> = ({ isVisible = false, title, slug, price, images, img, onClose }) => {
+
+	const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
 
 	const keydownHandler = ({ key, target }) => {
     switch (key) {
@@ -87,7 +104,7 @@ const ProductPopUp = ({ isVisible = false, title, slug, price, images, img, onCl
 									>
 										{images && images.map(img => (
 											<SwiperSlide key={img.id} className={cl(styles.thumbnails__slide, "swiper-slide")}>
-												<Image src={img.url} sizes={94} alt={title} fill />
+												<Image src={img.url} sizes="94" alt={title} fill />
 											</SwiperSlide>
 										))}
 									</Swiper>
@@ -117,10 +134,10 @@ const ProductPopUp = ({ isVisible = false, title, slug, price, images, img, onCl
 								>
 									{images && images.map(img => (
 										<SwiperSlide key={img.id} className={cl(styles.big__slide, "swiper-slide")}>
-											<Image src={img.url} sizes={596} alt={title} fill />
+											<Image src={img.url} sizes="596" alt={title} fill />
 										</SwiperSlide>
 										))}
-									{images ? false : img && <Image src={img} sizes={596} alt={title} fill />}
+									{images ? false : img && <Image src={img} sizes="596" alt={title} fill />}
 								</Swiper>
 							</div>
 						</div>

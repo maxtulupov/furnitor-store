@@ -1,4 +1,4 @@
-import { React, useState } from "react"
+import { useState, FC } from 'react';
 import styles from "../../screens/catalog/Catalog.module.scss"
 import Layout from "../../layout/Layout"
 import YaMap from "../home/yamap/YaMap"
@@ -6,9 +6,19 @@ import CatalogItem from "./catalogItem/CatalogItem"
 import cl from "classnames"
 import Pagi from "../../ui/pagi/Pagi"
 import Select from 'react-select'
+import { CatInfoCatalog, CatListAside, IsModal, NaviLinks, OneProduct } from "../../../../types"
+
+interface CatalogProps {
+  naviLinks: NaviLinks[],
+  isModal: IsModal,
+  setModal: (IsModal: IsModal) => void,
+  catList: CatListAside[],
+  productsList: OneProduct[],
+  catInfo?: CatInfoCatalog
+}
 
 
-const Catalog = (props) => {
+const Catalog:FC<CatalogProps> = (props) => {
 
 	const options = [
 		{ value: 'populars', label: 'по популярности', id: 'sd2' },

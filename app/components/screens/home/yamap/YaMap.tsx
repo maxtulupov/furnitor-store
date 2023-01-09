@@ -7,10 +7,13 @@ import { FC } from 'react';
 
 interface DefaultState {
   center: number[],
-  zoom: number
+  zoom: number,
+}
+interface YaMap {
+  noneContent?: Boolean
 }
 
-const YaMap: FC = ({ noneContent }: any) => {
+const YaMap:FC<YaMap> = ({ noneContent }) => {
 	const defaultState: DefaultState = {
 		center: [55.033776, 82.929211],
 		zoom: 12,

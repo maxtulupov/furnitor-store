@@ -3,7 +3,7 @@ export interface IsModal {
   title: string;
   slug: string;
   price: string;
-  images: string[];
+  images: OneProductImages[];
   img: string;
 }
 
@@ -13,7 +13,11 @@ export interface OneProduct {
   slug: string,
   img: string,
   price: string,
-  images: string[]
+  images: OneProductImages[]
+}
+export interface OneProductImages {
+  id: string,
+  url: string
 }
 
 export interface CatListAside {
@@ -22,6 +26,13 @@ export interface CatListAside {
   slug: string,
   icon: string,
   childrens: CatListAsideSubItem[]
+}
+export interface CatInfoCatalog {
+  id: number,
+  title: string,
+  slug: string,
+  icon?: string,
+  childrens?: CatListAsideSubItem[]
 }
 
 export interface CatListAsideSubItem {
