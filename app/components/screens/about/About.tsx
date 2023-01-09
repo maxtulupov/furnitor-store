@@ -13,10 +13,11 @@ import 'lightgallery/scss/lg-thumbnail.scss';
 import lgThumbnail from 'lightgallery/plugins/thumbnail';
 import lgZoom from 'lightgallery/plugins/zoom';
 import { FC } from "react";
+import { CatListAside, NaviLinks } from "../../../../types";
 
 interface AboutProps {
-  naviLinks: string[],
-  catList: string
+  naviLinks: NaviLinks[],
+  catList: CatListAside[]
 }
 
 const About: FC<AboutProps> = (props) => {
@@ -105,7 +106,7 @@ const About: FC<AboutProps> = (props) => {
 							<div className={cl(styles.sidebar__nav, styles.navSidebar)}>
 								<ul className={styles.navSidebar__list}>
 									{props.naviLinks && props.naviLinks.map(({id, title, path, childrens}) => (
-										childrens ? childrens.map(({id, title, path, children}) => (
+										childrens ? childrens.map(({id, title, path}) => (
 											<li key={id}><Link href={path}>{title}</Link></li>
 										)) : null
 									))}

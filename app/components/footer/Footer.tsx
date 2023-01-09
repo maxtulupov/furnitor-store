@@ -5,9 +5,14 @@ import logo from "../../assets/img/logo.svg"
 import Image from "next/image"
 import cl from "classnames"
 import devLogo from "../../assets/img/dev.svg"
+import { FC } from 'react';
+import { NaviLinks } from "../../../types"
 
+interface FooterProps {
+  naviLinks: NaviLinks[],
+}
 
-const Footer = (props) => {
+const Footer:FC<FooterProps> = (props) => {
 	const naviLinks = props.naviLinks;
 	return (
 		<footer className={styles.footer}>

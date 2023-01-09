@@ -3,11 +3,11 @@ import Aside from "../aside/Aside"
 import Header from "../header/Header"
 import Footer from "../footer/Footer"
 import ProductPopUp from "../ui/popups/ProductPopUp"
-import { CatListAside, IsModal } from '../../../types';
+import { CatListAside, IsModal, NaviLinks } from '../../../types';
 
 interface LayoutProps {
   children: JSX.Element,
-  naviLinks: string[],
+  naviLinks: NaviLinks[],
   isModal?: IsModal,
   setModal?: (IsModal: IsModal) => void,
   catList: CatListAside[]

@@ -5,19 +5,23 @@ import Image from "next/image"
 import styles from "../header/Header.module.scss"
 import cl from "classnames"
 import SearchIcon from "../ui/icons/SearchIcon"
+import { NaviLinks } from "../../../types"
 
+interface HeaderProps {
+  naviLinks: NaviLinks[],
+  isCatalogOpen: Boolean,
+  setIsCatalogOpen: (arg0: Boolean) => void
+}
 
-{/* <Header naviLinks={naviLinks} setIsCatalogOpen={setIsCatalogOpen} isCatalogOpen={isCatalogOpen} /> */}
-
-const Header:FC = (props) => {
+const Header:FC<HeaderProps> = (props) => {
 	const naviLinks = props.naviLinks;
 
-	const [offset, setOffset] = useState(0);
-	const [isHeaderShow, setIsHeaderShow] = useState(false);
+	const [offset, setOffset] = useState<Number>(0);
+	const [isHeaderShow, setIsHeaderShow] = useState<Boolean>(false);
 	const timer = useRef(null);
-	const headerShowTimer = 500;
+	const headerShowTimer:number = 500;
 
-	const [menuOpen, setMenuOpen] = useState(false);
+	const [menuOpen, setMenuOpen] = useState<Boolean>(false);
 
 	useEffect(() => {
 
@@ -50,7 +54,7 @@ const Header:FC = (props) => {
 			document.addEventListener('windowScroll', onScroll, { passive: true });
 			return () => {
 				document.removeEventListener('windowScroll', onScroll)
-				window.removeEventListener('scroll', () => document.dispatchEvent(windowScroll))
+				// window.removeEventListener('scroll', () => document.dispatchEvent(windowScroll))
 			};
 	}, [isHeaderShow, timer, headerShowTimer, offset]);
 

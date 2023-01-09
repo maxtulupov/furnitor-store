@@ -9,10 +9,10 @@ import Popular from "./popular/Popular"
 import Layout from "../../layout/Layout"
 import HomeAbout from "./about/HomeAbout"
 import YaMap from "./yamap/YaMap"
-import { CatListAside, IsModal, OneProduct } from '../../../../types';
+import { CatListAside, IsModal, NaviLinks, OneProduct } from '../../../../types';
 
 interface HomeProps {
-  naviLinks: string[],
+  naviLinks: NaviLinks[],
   isModal: IsModal,
   setModal: (IsModal: IsModal) => void,
   catList: CatListAside[],

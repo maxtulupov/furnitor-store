@@ -5,9 +5,9 @@ import styles from "../Cart/Cart.module.scss"
 import cl from "classnames";
 import Link from "next/link";
 import CartOneItem from "./CartOneItem/CartOneItem";
-import { useState } from "react"
+import { FC, useState } from "react"
 
-const Cart = (props) => {
+const Cart:FC = (props) => {
 	const [isModal, setModal] = useState({ open: false, title: 'kek', slug: 'test', price: '9999', images: [], img: '/img/about/about-image.png'});
 
 	return (

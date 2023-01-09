@@ -1,7 +1,12 @@
 import styles from "../breadcrumbs/Breadcrumbs.module.scss"
 import Link from "next/link"
+import { FC } from 'react';
 
-const Breadcrumbs = ({pageTitle, categories}) => {
+interface BreadcrumbsProps {
+  pageTitle: string,
+}
+
+const Breadcrumbs:FC<BreadcrumbsProps> = ({pageTitle}) => {
 
 	return (
 		<section className={styles.breadcrumbs}>
