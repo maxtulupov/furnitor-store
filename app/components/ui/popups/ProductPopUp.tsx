@@ -22,26 +22,23 @@ interface ProductPopUpProps {
   addStyle: string
 }
 
-interface KeyDownHandler {
-  key?: string,
-  target?: Document
-}
-
 const ProductPopUp:FC<ProductPopUpProps> = ({ isVisible = false, title, slug, price, images, img, onClose }) => {
 
 	const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
 
-	const keydownHandler = ({ key, target }) => {
+	const keydownHandler = ({ key }) => {
     switch (key) {
       case 'Escape':
         onClose();
         break;
       default:
     };
+  };
+	const clickHandler = ({ target }) => {
 		if (!target.closest(`.${styles.popup__content}`) && !target.closest('.popupProductClick')) {
 			onClose();
 		}
-  };
+	};
 
 	const bodyLock = () => {
 		if (document) {
@@ -63,10 +60,10 @@ const ProductPopUp:FC<ProductPopUpProps> = ({ isVisible = false, title, slug, pr
 		isVisible ? bodyLock() : bodyUnLock();
 
     document.addEventListener('keydown', keydownHandler);
-		document.addEventListener('click', keydownHandler);
+		document.addEventListener('click', clickHandler);
     return () => {
 			document.removeEventListener('keydown', keydownHandler);
-			document.removeEventListener('click', keydownHandler);
+			document.removeEventListener('click', clickHandler);
 		};
   });
 
