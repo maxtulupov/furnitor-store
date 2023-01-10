@@ -1,5 +1,7 @@
+import { NextPage } from 'next';
 import Contacts from '../../app/components/screens/contacts/Contacts';
 import nextConfig from '../../next.config';
+import { CatListAside, NaviLinks } from '../../types';
 
 export const getStaticProps = async () => {
 	const response = await fetch(`${nextConfig.env.API_URL}/navi`);
@@ -13,7 +15,13 @@ export const getStaticProps = async () => {
 	}
 };
 
-const ContactsPage = (data) => {
+
+interface ContactsPageProps {
+  naviLinks: NaviLinks[],
+  catList: CatListAside[]
+}
+
+const ContactsPage:NextPage<ContactsPageProps> = (data) => {
 	return <Contacts naviLinks={data.naviLinks} catList={data.catList} />
 };
 

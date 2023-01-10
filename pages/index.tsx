@@ -1,6 +1,7 @@
 import { NextPage } from 'next';
 import Home from '../app/components/screens/home/Home';
 import nextConfig from '../next.config';
+import { CatListAside, NaviLinks, OneProduct } from '../types';
 
 export const getStaticProps = async () => {
 	const response = await fetch(`${nextConfig.env.API_URL}/navi`);
@@ -17,16 +18,14 @@ export const getStaticProps = async () => {
 	}
 };
 
-const HomePage:NextPage = (data: any) => {
+interface HomePageProps {
+  naviLinks: NaviLinks[],
+  catList: CatListAside[],
+  productsList: OneProduct[],
+}
+
+const HomePage:NextPage<HomePageProps> = (data) => {
 	return <Home naviLinks={data.naviLinks} productsList={data.productsList} catList={data.catList} />
 };
 
 export default HomePage;
-
-// export async function getServerSideProps() {
-//   const res = await fetch(`http://localhost:3000/api/product`)
-//   const data = await res.json()
-//   return {
-//     props: {product} 
-//   }
-// }

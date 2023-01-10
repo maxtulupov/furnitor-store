@@ -13,8 +13,6 @@ import { CatListAside, IsModal, NaviLinks, OneProduct } from '../../../../types'
 
 interface HomeProps {
   naviLinks: NaviLinks[],
-  isModal: IsModal,
-  setModal: (IsModal: IsModal) => void,
   catList: CatListAside[],
   productsList: OneProduct[],
 }

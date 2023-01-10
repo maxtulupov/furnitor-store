@@ -1,20 +1,20 @@
+import { NextPage } from 'next';
 import Catalog from '../../../app/components/screens/catalog/Catalog';
 import nextConfig from '../../../next.config';
-import { useRouter } from 'next/router'
+import { CatInfoCatalog, CatListAside, NaviLinks, OneProduct } from '../../../types';
 
-export async function getStaticPaths(query) {
+export async function getStaticPaths(query: any) {
 	const response = await fetch(`${nextConfig.env.API_URL}/catList/?slug=${query}`);
 	const data = await response.json();
 
-	const paths = data.map(cat => {
+	const paths = data.map((cat: { slug: any; childrens: { map: () => any; }; }) => {
 		return {
 			params: {
         slug: cat.slug,
-        id: cat.childrens.map(child => childSlug)
+        id: cat.childrens.map()
       }
 		}
 	});
-  console.log(paths);
 
   return {
     paths,
@@ -22,7 +22,7 @@ export async function getStaticPaths(query) {
   }
 }
 
-export const getStaticProps = async (context) => {
+export const getStaticProps = async (context: { params: { slug: any; id: any; }; }) => {
   const parentSlug = context.params.slug;
 	const slug = context.params.id;
 
@@ -41,17 +41,19 @@ export const getStaticProps = async (context) => {
 	const data4 = await response4.json();
 
 	return {
-		props: { naviLinks: data, catInfo: data2[0].childrens.filter(subCat => subCat.childSlug == context.params.id)[0], productList: data3, catList: data4, contextTest: context.params},
+		props: { naviLinks: data, catInfo: data2[0].childrens.filter((subCat: { childSlug: any; }) => subCat.childSlug == context.params.id)[0], productsList: data3, catList: data4, contextTest: context.params},
 	}
 };
 
+interface CatPageProps {
+  naviLinks: NaviLinks[],
+  productsList: OneProduct[],
+  catList: CatListAside[]
+  catInfo: CatInfoCatalog
+}
 
-const CatPage = (data) => {
-
-  // const router = useRouter();
-  // const slugTest = (router);
-
-	return <Catalog naviLinks={data.naviLinks} catInfo={data.catInfo} productsList={data.productList} catList={data.catList} />
+const CatPage:NextPage<CatPageProps> = (data) => {
+	return <Catalog naviLinks={data.naviLinks} catInfo={data.catInfo} productsList={data.productsList} catList={data.catList} />
 };
 
 export default CatPage;

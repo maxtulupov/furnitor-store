@@ -1,5 +1,7 @@
+import { NextPage } from 'next';
 import Product from '../../app/components/screens/product/Product';
 import nextConfig from '../../next.config';
+import { CatListAside, NaviLinks, OneProduct } from '../../types';
 
 export async function getStaticPaths() {
 	const response = await fetch(`${nextConfig.env.API_URL}/productList/`);
@@ -38,8 +40,14 @@ export const getStaticProps = async (context) => {
 	}
 };
 
+interface ProductPageProps {
+  naviLinks: NaviLinks[],
+  productList: OneProduct[],
+  catList: CatListAside[],
+  productInfo: OneProduct
+}
 
-const ProductPage = (data) => {
+const ProductPage:NextPage<ProductPageProps> = (data) => {
 	return <Product naviLinks={data.naviLinks} productInfo={data.productInfo} productList={data.productList} catList={data.catList} />
 };
 

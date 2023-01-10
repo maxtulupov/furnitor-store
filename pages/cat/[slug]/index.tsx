@@ -1,13 +1,14 @@
 import Catalog from '../../../app/components/screens/catalog/Catalog';
 import nextConfig from '../../../next.config';
-import { useRouter } from 'next/router'
+import { NextPage } from 'next';
+import { CatListAside, NaviLinks, OneProduct, CatInfoCatalog } from '../../../types';
 
 
 export async function getStaticPaths() {
 	const response = await fetch(`${nextConfig.env.API_URL}/catList/`);
 	const data = await response.json();
 
-	const paths = data.map(cat => {
+	const paths = data.map((cat: { slug: any; }) => {
 		return {
 			params: {
         slug: cat.slug
@@ -21,7 +22,7 @@ export async function getStaticPaths() {
   }
 }
 
-export const getStaticProps = async (context) => {
+export const getStaticProps = async (context: { params: { slug: any; }; }) => {
 	const slug = context.params.slug;
 
 
@@ -39,18 +40,19 @@ export const getStaticProps = async (context) => {
 	const data4 = await response4.json();
 
 	return {
-		props: { naviLinks: data, catInfo: data2[0], productList: data3, catList: data4 },
+		props: { naviLinks: data, catInfo: data2[0], productsList: data3, catList: data4 },
 	}
 };
 
+interface CatPageProps {
+  naviLinks: NaviLinks[],
+  productsList: OneProduct[],
+  catList: CatListAside[]
+  catInfo: CatInfoCatalog
+}
 
-const CatPage = (data) => {
-
-  const router = useRouter();
-  const slugTest = (router);
-  console.log(slugTest);
-
-	return <Catalog naviLinks={data.naviLinks} catInfo={data.catInfo} productsList={data.productList} catList={data.catList} />
+const CatPage:NextPage<CatPageProps> = (data) => {
+	return <Catalog naviLinks={data.naviLinks} catInfo={data.catInfo} productsList={data.productsList} catList={data.catList} />
 };
 
 export default CatPage;

@@ -10,14 +10,12 @@ import { CatListAside, IsModal, NaviLinks, OneProduct } from "../../../../types"
 
 interface CartProps {
   naviLinks: NaviLinks[],
-  isModal: IsModal,
-  setModal: (IsModal: IsModal) => void,
   catList: CatListAside[],
-  productsList: OneProduct[],
+  productsList: OneProduct[]
 }
 
 const Cart:FC<CartProps> = (props) => {
-	const [isModal, setModal] = useState({ open: false, title: 'kek', slug: 'test', price: '9999', images: [], img: '/img/about/about-image.png'});
+	const [isModal, setModal] = useState<IsModal>({ open: false, title: 'kek', slug: 'test', price: '9999', images: [], img: '/img/about/about-image.png'});
 
 	return (
 		<Layout naviLinks={props.naviLinks} catList={props.catList} isModal={isModal} setModal={setModal}>

@@ -18,18 +18,16 @@ import { CatListAside, IsModal, NaviLinks, OneProduct } from "../../../../types"
 
 interface ProductProps {
   naviLinks: NaviLinks[],
-  isModal: IsModal
-  setModal: (IsModal: IsModal) => void,
   catList: CatListAside[],
   productList: OneProduct[],
   productInfo: OneProduct,
-  sizes: string
+  sizes?: string
 }
 
 const Product:FC<ProductProps> = (props) => {
 	const product = props.productInfo;
 	const [thumbsSwiper, setThumbsSwiper] = useState(null);
-	const [isModal, setModal] = useState({ open: false, title: 'kek', slug: 'test', price: '9999', images: [], img: '/img/about/about-image.png'});
+	const [isModal, setModal] = useState<IsModal>({ open: false, title: 'kek', slug: 'test', price: '9999', images: [], img: '/img/about/about-image.png'});
 
 
 	return (

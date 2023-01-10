@@ -10,8 +10,6 @@ import { CatInfoCatalog, CatListAside, IsModal, NaviLinks, OneProduct } from "..
 
 interface CatalogProps {
   naviLinks: NaviLinks[],
-  isModal: IsModal,
-  setModal: (IsModal: IsModal) => void,
   catList: CatListAside[],
   productsList: OneProduct[],
   catInfo?: CatInfoCatalog
@@ -25,7 +23,7 @@ const Catalog:FC<CatalogProps> = (props) => {
 		{ value: 'price', label: 'по цене', id: 'sd3' }
 	]
 
-	const [isModal, setModal] = useState({ open: false, title: 'kek', slug: 'test', price: '9999', images: [], img: '/img/about/about-image.png'});
+	const [isModal, setModal] = useState<IsModal>({ open: false, title: 'kek', slug: 'test', price: '9999', images: [], img: '/img/about/about-image.png'});
 
 	return (
 		<Layout naviLinks={props.naviLinks} isModal={isModal} setModal={setModal} catList={props.catList} >

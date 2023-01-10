@@ -10,7 +10,7 @@ import { CatListAside, NaviLinks } from "../../../../types";
 interface ContactsProps {
   naviLinks: NaviLinks[],
   catList: CatListAside[],
-  noneContent: Boolean
+  noneContent?: Boolean
 }
 
 const Contacts:FC<ContactsProps> = (props) => {
@@ -25,7 +25,7 @@ const Contacts:FC<ContactsProps> = (props) => {
 							<div className={cl(styles.contactsPage__item, styles.itemContactsPage)}>
 								<Link href="mailto:sibir-mebel@sibmebel.ru" className={styles.itemContactsPage__link}>
 									<svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-										<g clip-path="url(#clip0_14_839)">
+										<g clipPath="url(#clip0_14_839)">
 										<path d="M1.80007 4.7002C1.56423 4.7002 1.34053 4.74979 1.13439 4.8314L11.3156 13.7279C11.7556 14.1123 12.2244 14.1128 12.6655 13.7279L22.8654 4.8314C22.6595 4.74958 22.4356 4.7002 22.1997 4.7002H1.79991H1.80007ZM0.0188331 6.24706C0.00732395 6.32888 0 6.41488 0 6.50006V18.4999C0 19.4971 0.802707 20.3 1.80009 20.3H22.1999C23.197 20.3 24 19.4973 24 18.4999V6.50006C24 6.41489 23.9927 6.32888 23.9812 6.24685L13.8466 15.0877C12.7892 16.0099 11.1915 16.0113 10.1341 15.0877L0.0188266 6.24685L0.0188331 6.24706Z" fill="#E3302C"/>
 										</g>
 										<defs>

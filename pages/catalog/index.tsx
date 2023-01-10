@@ -1,6 +1,8 @@
 // import Home from '../app/components/screens/home/Home';
 import nextConfig from '../../next.config';
 import Catalog from '../../app/components/screens/catalog/Catalog';
+import { NextPage } from 'next';
+import { CatListAside, NaviLinks, OneProduct } from '../../types';
 
 export const getStaticProps = async () => {
 	const response = await fetch(`${nextConfig.env.API_URL}/navi`);
@@ -17,7 +19,13 @@ export const getStaticProps = async () => {
 	}
 };
 
-const CatalogPage = (data) => {
+interface CatalogPageProps {
+  naviLinks: NaviLinks[],
+  productsList: OneProduct[],
+  catList: CatListAside[]
+}
+
+const CatalogPage:NextPage<CatalogPageProps> = (data) => {
 	return <Catalog naviLinks={data.naviLinks} productsList={data.productsList} catList={data.catList} />
 };
 
