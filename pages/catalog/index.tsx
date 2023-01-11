@@ -3,6 +3,7 @@ import nextConfig from '../../next.config';
 import Catalog from '../../app/components/screens/catalog/Catalog';
 import { NextPage } from 'next';
 import { CatListAside, NaviLinks, OneProduct } from '../../types';
+import Head from 'next/head';
 
 export const getStaticProps = async () => {
 	const response = await fetch(`${nextConfig.env.API_URL}/navi`);
@@ -26,7 +27,16 @@ interface CatalogPageProps {
 }
 
 const CatalogPage:NextPage<CatalogPageProps> = (data) => {
-	return <Catalog naviLinks={data.naviLinks} productsList={data.productsList} catList={data.catList} />
+	return (
+    <>
+      <Head>
+        <title>Каталог — Сибирь мебель</title>
+        <meta name="description" content="Каталог. Сибирь мебель - мебель по оптовым ценам в Новосибирске." />
+        <meta name="robots" content="noindex,nofollow" />
+      </Head>
+      <Catalog naviLinks={data.naviLinks} productsList={data.productsList} catList={data.catList} />
+    </>
+  )
 };
 
 export default CatalogPage;

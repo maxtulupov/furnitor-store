@@ -1,4 +1,5 @@
 import { NextPage } from 'next';
+import Head from 'next/head';
 import Contacts from '../../app/components/screens/contacts/Contacts';
 import nextConfig from '../../next.config';
 import { CatListAside, NaviLinks } from '../../types';
@@ -22,7 +23,16 @@ interface ContactsPageProps {
 }
 
 const ContactsPage:NextPage<ContactsPageProps> = (data) => {
-	return <Contacts naviLinks={data.naviLinks} catList={data.catList} />
+	return (
+    <>
+      <Head>
+        <title>Контакты — Сибирь мебель</title>
+        <meta name="description" content="Контакты. Сибирь мебель - мебель по оптовым ценам в Новосибирске." />
+        <meta name="robots" content="noindex,nofollow" />
+      </Head>
+      <Contacts naviLinks={data.naviLinks} catList={data.catList} />
+    </>
+  )
 };
 
 export default ContactsPage;

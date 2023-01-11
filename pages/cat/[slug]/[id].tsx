@@ -1,4 +1,5 @@
 import { NextPage } from 'next';
+import Head from 'next/head';
 import Catalog from '../../../app/components/screens/catalog/Catalog';
 import nextConfig from '../../../next.config';
 import { CatInfoCatalog, CatListAside, NaviLinks, OneProduct } from '../../../types';
@@ -53,7 +54,16 @@ interface CatPageProps {
 }
 
 const CatPage:NextPage<CatPageProps> = (data) => {
-	return <Catalog naviLinks={data.naviLinks} catInfo={data.catInfo} productsList={data.productsList} catList={data.catList} />
+	return (
+    <>
+      <Head>
+        <title>{data.catInfo.title} — Сибирь мебель</title>
+        <meta name="description" content={`${data.catInfo.title}. Сибирь мебель - мебель по оптовым ценам в Новосибирске.`} />
+        <meta name="robots" content="noindex,nofollow" />
+      </Head>
+      <Catalog naviLinks={data.naviLinks} catInfo={data.catInfo} productsList={data.productsList} catList={data.catList} />
+    </>
+  )
 };
 
 export default CatPage;

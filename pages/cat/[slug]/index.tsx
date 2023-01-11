@@ -2,6 +2,7 @@ import Catalog from '../../../app/components/screens/catalog/Catalog';
 import nextConfig from '../../../next.config';
 import { NextPage } from 'next';
 import { CatListAside, NaviLinks, OneProduct, CatInfoCatalog } from '../../../types';
+import Head from 'next/head';
 
 
 export async function getStaticPaths() {
@@ -52,7 +53,16 @@ interface CatPageProps {
 }
 
 const CatPage:NextPage<CatPageProps> = (data) => {
-	return <Catalog naviLinks={data.naviLinks} catInfo={data.catInfo} productsList={data.productsList} catList={data.catList} />
+	return (
+    <>
+      <Head>
+        <title>Каталог — Сибирь мебель</title>
+        <meta name="description" content="Каталог. Сибирь мебель - мебель по оптовым ценам в Новосибирске." />
+        <meta name="robots" content="noindex,nofollow" />
+      </Head>
+      <Catalog naviLinks={data.naviLinks} catInfo={data.catInfo} productsList={data.productsList} catList={data.catList} />
+    </>
+  )
 };
 
 export default CatPage;

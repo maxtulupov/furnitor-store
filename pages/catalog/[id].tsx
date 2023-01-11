@@ -1,4 +1,5 @@
 import { NextPage } from 'next';
+import Head from 'next/head';
 import Product from '../../app/components/screens/product/Product';
 import nextConfig from '../../next.config';
 import { CatListAside, NaviLinks, OneProduct } from '../../types';
@@ -48,7 +49,16 @@ interface ProductPageProps {
 }
 
 const ProductPage:NextPage<ProductPageProps> = (data) => {
-	return <Product naviLinks={data.naviLinks} productInfo={data.productInfo} productList={data.productList} catList={data.catList} />
+	return (
+    <>
+      <Head>
+        <title>{data.productInfo.title} — Сибирь мебель</title>
+        <meta name="description" content={`${data.productInfo.title}. Сибирь мебель - мебель по оптовым ценам в Новосибирске.`} />
+        <meta name="robots" content="noindex,nofollow" />
+      </Head>
+      <Product naviLinks={data.naviLinks} productInfo={data.productInfo} productList={data.productList} catList={data.catList} />
+    </>
+  )
 };
 
 export default ProductPage;

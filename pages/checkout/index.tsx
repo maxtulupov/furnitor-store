@@ -2,6 +2,7 @@ import { NextPage } from "next";
 import nextConfig from '../../next.config';
 import { CatListAside, NaviLinks, OneProduct } from "../../types";
 import Checkout from '../../app/components/screens/checkout/Checkout';
+import Head from "next/head";
 
 export const getStaticProps = async () => {
 	const response = await fetch(`${nextConfig.env.API_URL}/navi`);
@@ -24,7 +25,16 @@ interface CheckoutPageProps {
 }
 
 const CheckoutPage:NextPage<CheckoutPageProps> = (data) => {
-	return <Checkout naviLinks={data.naviLinks} catList={data.catList} />
+	return (
+    <>
+      <Head>
+        <title>Оформление заказа — Сибирь мебель</title>
+        <meta name="description" content="Оформление заказа. Сибирь мебель - мебель по оптовым ценам в Новосибирске." />
+        <meta name="robots" content="noindex,nofollow" />
+      </Head>
+      <Checkout naviLinks={data.naviLinks} catList={data.catList} />
+    </>
+  )
 };
 
 export default CheckoutPage;

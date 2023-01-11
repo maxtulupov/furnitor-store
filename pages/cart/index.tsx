@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import Head from "next/head";
 import Cart from "../../app/components/screens/cart/Cart";
 import nextConfig from '../../next.config';
 import { CatListAside, NaviLinks, OneProduct } from "../../types";
@@ -25,7 +26,16 @@ interface CartPageProps {
 }
 
 const CartPage:NextPage<CartPageProps> = (data) => {
-	return <Cart naviLinks={data.naviLinks} productsList={data.productsList} catList={data.catList} />
+	return (
+    <>
+      <Head>
+        <title>Корзина — Сибирь мебель</title>
+        <meta name="description" content="Корзина. Сибирь мебель - мебель по оптовым ценам в Новосибирске." />
+        <meta name="robots" content="noindex,nofollow" />
+      </Head>
+      <Cart naviLinks={data.naviLinks} productsList={data.productsList} catList={data.catList} />
+    </>
+  )
 };
 
 export default CartPage;

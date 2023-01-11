@@ -19,7 +19,7 @@ interface ProductPopUpProps {
   images: OneProductImages[],
   img: string,
   onClose: () => void,
-  addStyle: string
+  addStyle?: string
 }
 
 const ProductPopUp:FC<ProductPopUpProps> = ({ isVisible = false, title, slug, price, images, img, onClose }) => {

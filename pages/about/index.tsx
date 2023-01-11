@@ -1,4 +1,5 @@
 import { NextPage } from 'next';
+import Head from 'next/head';
 import About from '../../app/components/screens/about/About';
 import nextConfig from '../../next.config';
 import { CatListAside, NaviLinks } from '../../types';
@@ -21,7 +22,16 @@ interface AboutPageProps {
 }
 
 const AboutPage:NextPage<AboutPageProps> = (data) => {
-	return <About naviLinks={data.naviLinks} catList={data.catList} />
+	return (
+    <>
+      <Head>
+        <title>О компании — Сибирь мебель</title>
+        <meta name="description" content="О Компании. Сибирь мебель - мебель по оптовым ценам в Новосибирске." />
+        <meta name="robots" content="noindex,nofollow" />
+      </Head>
+      <About naviLinks={data.naviLinks} catList={data.catList} />
+    </>
+  )
 };
 
 export default AboutPage;
