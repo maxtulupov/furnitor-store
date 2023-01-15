@@ -58,3 +58,12 @@ export interface NaviLinksGalleryElem {
   id: number,
   img: string
 }
+
+export interface SliceCartItem {
+  id: string,
+  title: string,
+  img: string,
+  price: string,
+  slug: string,
+  count: number
+};
