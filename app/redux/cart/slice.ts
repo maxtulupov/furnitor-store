@@ -1,16 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { SliceCartItem } from '../../../types';
+import { SliceCartItem, SliceCartState } from '../../../types';
 import { calcTotalPrice } from '../../utils/calcTotalPrice';
+import { getDataLS } from '../../utils/getDataLS'
 
 
-// const initialState: CartSliceState = getCartFromLS();
+const initialState: SliceCartState = getDataLS();
 
 const cartSlice = createSlice({
   name: 'cart',
-  initialState: {
-    items: [],
-    totalPrice: 0
-  },
+  initialState: initialState,
   reducers: {
     addItem(state, action: PayloadAction<SliceCartItem>) {
       const findItem = state.items.find((elem) => elem.id === action.payload.id);

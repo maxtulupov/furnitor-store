@@ -67,3 +67,8 @@ export interface SliceCartItem {
   slug: string,
   count: number
 };
+
+export interface SliceCartState {
+  totalPrice: number;
+  items: SliceCartItem[];
+}
