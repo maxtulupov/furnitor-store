@@ -4,9 +4,12 @@ import cl from "classnames"
 import Link from "next/link"
 import cartIcon from "../../../../assets/img/icons/cart-icon_wh.svg"
 import { FC } from 'react';
-import { IsModal, OneProductImages } from '../../../../../types';
+import { IsModal, OneProductImages, SliceCartItem } from '../../../../../types';
+import { useDispatch } from "react-redux"
+import { addItem } from "../../../../redux/cart/slice"
 
 interface CatalogItemProps {
+  id: number,
   title: string,
   img: string,
   images: OneProductImages[],
@@ -17,6 +20,19 @@ interface CatalogItemProps {
 }
 
 const CatalogItem:FC<CatalogItemProps> = (props) => {
+  const dispatch = useDispatch();
+
+  const onClickAdd = () => {
+    const thisItem: SliceCartItem = {
+      id: props.id, 
+      title: props.title, 
+      img: props.img, 
+      price: props.price, 
+      slug: props.slug, 
+      count: 1
+    };
+    dispatch(addItem(thisItem));
+  };
 
 	return (
 		<article className={styles.itemCatalog}>
@@ -34,8 +50,8 @@ const CatalogItem:FC<CatalogItemProps> = (props) => {
 				<h4 className={styles.itemCatalog__title}>
 					<Link href={`/catalog/${props.slug}`}>{props.title}</Link>
 				</h4>
-				<form action="" method="" className={styles.itemCatalog__form}>
-					<div className={cl(styles.itemCatalog__priceBlock, styles.priceItem)}>
+				<div className={styles.itemCatalog__form}>
+					<div onClick={onClickAdd} className={cl(styles.itemCatalog__priceBlock, styles.priceItem)}>
 						<div className={styles.priceItem__price}>
 							<span>{props.price}</span> ₽
 						</div>
@@ -43,7 +59,7 @@ const CatalogItem:FC<CatalogItemProps> = (props) => {
 							<Image src={cartIcon} alt="Иконка корзины" />
 						</button>
 					</div>
-				</form>
+				</div>
 			</div>
 		</article>
 	)

@@ -1,28 +1,38 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, current } from '@reduxjs/toolkit';
 import { SliceCartItem, SliceCartState } from '../../../types';
 import { calcTotalPrice } from '../../utils/calcTotalPrice';
 import { getDataLS } from '../../utils/getDataLS'
 
 
+const saveToLocalStorage = (state) => {
+  try {
+    localStorage.setItem('cart', JSON.stringify(state));
+  } catch (e) {
+    console.error(e);
+  }
+};
+
 const initialState: SliceCartState = getDataLS();
 
 const cartSlice = createSlice({
   name: 'cart',
-  initialState: initialState,
+  initialState,
   reducers: {
     addItem(state, action: PayloadAction<SliceCartItem>) {
       const findItem = state.items.find((elem) => elem.id === action.payload.id);
+
 
       if (findItem) {
         findItem.count++;
       } else {
         state.items.push({
-          ...action.payload,
-          count: 1,
+          ...action.payload
         });
       }
 
       state.totalPrice = calcTotalPrice(state.items);
+
+      saveToLocalStorage(state);
     },
     minusItem(state, action: PayloadAction<string>) {},
     removeItem(state, action: PayloadAction<string>) {},

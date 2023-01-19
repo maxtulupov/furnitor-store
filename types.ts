@@ -60,7 +60,7 @@ export interface NaviLinksGalleryElem {
 }
 
 export interface SliceCartItem {
-  id: string,
+  id: number,
   title: string,
   img: string,
   price: string,
@@ -71,4 +71,8 @@ export interface SliceCartItem {
 export interface SliceCartState {
   totalPrice: number;
   items: SliceCartItem[];
+}
+
+export interface SliceState {
+  cart: SliceCartState
 }

@@ -5,7 +5,8 @@ import Image from "next/image"
 import styles from "../header/Header.module.scss"
 import cl from "classnames"
 import SearchIcon from "../ui/icons/SearchIcon"
-import { NaviLinks } from "../../../types"
+import { NaviLinks, SliceState } from "../../../types"
+import { useSelector } from "react-redux"
 
 interface HeaderProps {
   naviLinks: NaviLinks[],
@@ -23,7 +24,9 @@ const Header:FC<HeaderProps> = (props) => {
 
 	const [menuOpen, setMenuOpen] = useState<Boolean>(false);
 
-	useEffect(() => {
+  const totalPrice = useSelector<SliceState>((state) => state.cart.totalPrice);
+	
+  useEffect(() => {
 
 		const onScroll = (e) => {	
 			clearTimeout(timer.current);
@@ -120,7 +123,7 @@ const Header:FC<HeaderProps> = (props) => {
 								Корзина:
 							</div>
 							<div className={styles.cartHeader__summ}>
-								<span>34 600</span> ₽
+								<span>{totalPrice !== 0 ? totalPrice.toString().replace(/(\d{1,3}(?=(?:\d\d\d)+(?!\d)))/g, "$1" + ' ') : 0}</span> ₽
 							</div>
 						</div>
 					</Link>
