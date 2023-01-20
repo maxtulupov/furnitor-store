@@ -24,7 +24,7 @@ const Header:FC<HeaderProps> = (props) => {
 
 	const [menuOpen, setMenuOpen] = useState<Boolean>(false);
 
-  const totalPrice = useSelector<SliceState>((state) => state.cart.totalPrice);
+  // const totalPrice = useSelector<SliceState>((state) => state.cart.totalPrice);
 	
   useEffect(() => {
 
@@ -123,7 +123,10 @@ const Header:FC<HeaderProps> = (props) => {
 								Корзина:
 							</div>
 							<div className={styles.cartHeader__summ}>
-								<span>{totalPrice !== 0 ? totalPrice.toString().replace(/(\d{1,3}(?=(?:\d\d\d)+(?!\d)))/g, "$1" + ' ') : 0}</span> ₽
+								<span>{
+                  // totalPrice !== 0 ? totalPrice.toString().replace(/(\d{1,3}(?=(?:\d\d\d)+(?!\d)))/g, "$1" + ' ') : 0
+                  0
+                  }</span> ₽
 							</div>
 						</div>
 					</Link>
