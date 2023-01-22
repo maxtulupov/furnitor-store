@@ -2,31 +2,34 @@ import { createSlice, PayloadAction, current } from '@reduxjs/toolkit';
 import { SliceCartItem, SliceCartState } from '../../../types';
 import { calcTotalPrice } from '../../utils/calcTotalPrice';
 import { getDataLS } from '../../utils/getDataLS'
-import { setCookie, getCookie } from 'cookies-next';
+import { setCookie, deleteCookie } from 'cookies-next';
 
-const saveToLocalStorage = (state) => {
-  try {
-    localStorage.setItem('cart', JSON.stringify(state));
-  } catch (e) {
-    console.error(e);
-  }
-};
+import Cookies from 'js-cookie'
 
 const saveToCookie = (state) => {
-  try {
-    setCookie('cart', JSON.stringify(state), []);
-    // console.log(getCookie('cart', []));
-  } catch (e) {
-    console.error(e);
-  }
+  // deleteCookie('cart', []);
+  setCookie('cart', '', []);
+  setCookie('cart', JSON.stringify(state), []);
 };
 
-const initialState: SliceCartState = getDataLS();
+// const initialState: SliceCartState = getDataLS();
 
 const cartSlice = createSlice({
   name: 'cart',
-  initialState,
+  initialState: {
+    items: [],
+    totalPrice: 0
+  },
   reducers: {
+    updatePageItems(state, action: PayloadAction<SliceCartItem>) {
+      state.items.push({
+        ...action.payload
+      });
+
+      state.totalPrice = calcTotalPrice(state.items);
+
+      saveToCookie(state);
+    },
     addItem(state, action: PayloadAction<SliceCartItem>) {
       const findItem = state.items.find((elem) => elem.id === action.payload.id);
 
@@ -40,8 +43,6 @@ const cartSlice = createSlice({
       }
 
       state.totalPrice = calcTotalPrice(state.items);
-
-      // saveToLocalStorage(state);
       saveToCookie(state);
     },
     minusItem(state, action: PayloadAction<string>) {},
@@ -50,6 +51,6 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addItem, removeItem, minusItem, clearItems } = cartSlice.actions;
+export const { updatePageItems, addItem, removeItem, minusItem, clearItems } = cartSlice.actions;
 
 export default cartSlice.reducer;

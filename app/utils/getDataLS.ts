@@ -1,29 +1,32 @@
 import { SliceCartItem } from "../../types";
-import { parseCookies } from './parseCookies';
+import { getCookie } from 'cookies-next';
 
-export const getDataLS = () => {
+import Cookies from 'js-cookie'
 
 
-  try {
+export const getDataLS = (req) => {
 
-    // получаем значение из локального хранилища по ключу
-    const data = localStorage.getItem('cart');
-
-    const lsObj = JSON.parse(data);
-    const items = data ? lsObj.items : [];
-    const totalPrice = data ? lsObj.totalPrice : 0;
+  if (typeof window !== "undefined") {
+    const data = Cookies.getJSON('cartt');
+	
+    const items = data ? data.items : [];
+    const totalPrice = data ? data.totalPrice : 0;
     // разбираем полученное значение или возвращаем initialValue
     return {
       items: items as SliceCartItem[],
       totalPrice
     }
-  } catch (error) {
-    // если возникла ошибка, также возвращаем начальное значение
-    console.error(error);
+  } else {
 
-    const items = [];
-    const totalPrice = 0;
+    const data = Cookies.getJSON('cart');
 
+    // console.log(req);
+
+    // console.log(data);
+	
+    const items = data ? data.items : [];
+    const totalPrice = data ? data.totalPrice : 0;
+    // разбираем полученное значение или возвращаем initialValue
     return {
       items: items as SliceCartItem[],
       totalPrice

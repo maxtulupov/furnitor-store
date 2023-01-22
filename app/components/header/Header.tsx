@@ -5,8 +5,10 @@ import Image from "next/image"
 import styles from "../header/Header.module.scss"
 import cl from "classnames"
 import SearchIcon from "../ui/icons/SearchIcon"
-import { NaviLinks, SliceState } from "../../../types"
-import { useSelector } from "react-redux"
+import { NaviLinks, SliceCartItem, SliceState } from "../../../types"
+import { useDispatch, useSelector } from "react-redux"
+import Cookies from "js-cookie"
+import { updatePageItems } from "../../redux/cart/slice"
 
 interface HeaderProps {
   naviLinks: NaviLinks[],
@@ -24,7 +26,37 @@ const Header:FC<HeaderProps> = (props) => {
 
 	const [menuOpen, setMenuOpen] = useState<Boolean>(false);
 
-  // const totalPrice = useSelector<SliceState>((state) => state.cart.totalPrice);
+  const totalPricee = useSelector<SliceState>((state) => state.cart.totalPrice);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log('s');
+
+    const getHeaderCookie = () => {
+      const data = Cookies.getJSON('cart');
+
+      console.log(data);
+	
+      const items = data ? data.items : [];
+      const totalPrice = data ? data.totalPrice : 0;
+      // разбираем полученное значение или возвращаем initialValue
+      return {
+        items: items as SliceCartItem[],
+        totalPrice
+      }
+    }
+
+    const cookieItems = getHeaderCookie();
+    // console.log(totalPricee);
+    // console.log(cookieItems.totalPrice);
+    
+    if (cookieItems.totalPrice !== totalPricee) {
+      console.log('lel');
+      cookieItems.items.map(item => dispatch(updatePageItems(item)))
+    }
+
+  }, [dispatch, totalPricee])
 	
   useEffect(() => {
 
@@ -124,8 +156,7 @@ const Header:FC<HeaderProps> = (props) => {
 							</div>
 							<div className={styles.cartHeader__summ}>
 								<span>{
-                  // totalPrice !== 0 ? totalPrice.toString().replace(/(\d{1,3}(?=(?:\d\d\d)+(?!\d)))/g, "$1" + ' ') : 0
-                  0
+                  totalPricee.toString().replace(/(\d{1,3}(?=(?:\d\d\d)+(?!\d)))/g, "$1" + ' ')
                   }</span> ₽
 							</div>
 						</div>

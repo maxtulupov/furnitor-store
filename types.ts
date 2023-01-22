@@ -69,8 +69,8 @@ export interface SliceCartItem {
 };
 
 export interface SliceCartState {
-  totalPrice: number;
-  items: SliceCartItem[];
+  items: SliceCartItem[],
+  totalPrice: number
 }
 
 export interface SliceState {
