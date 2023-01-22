@@ -30,33 +30,54 @@ const Header:FC<HeaderProps> = (props) => {
 
   const dispatch = useDispatch();
 
+  const [isLoaded, setIsLoaded] = useState<Boolean>(true);
+
   useEffect(() => {
-    console.log('s');
 
-    const getHeaderCookie = () => {
-      const data = Cookies.getJSON('cart');
+    const cookieWork = () => {
+      console.log('eee');
 
-      console.log(data);
-	
-      const items = data ? data.items : [];
-      const totalPrice = data ? data.totalPrice : 0;
-      // разбираем полученное значение или возвращаем initialValue
-      return {
-        items: items as SliceCartItem[],
-        totalPrice
+      const getHeaderCookie = () => {
+        const data = Cookies.getJSON('cart');
+  
+        if (data !== undefined && data !== '') {
+          console.log(data); 
+  
+          const items = data.items;
+          const totalPrice = data.totalPrice;
+  
+          return {
+            items: items as SliceCartItem[],
+            totalPrice
+          }
+        } else {
+          return undefined;
+        }
+      
       }
+  
+      const cookieItems = getHeaderCookie();
+      
+      if (cookieItems !== undefined) {
+        console.log('lel');
+        // cookieItems.items.map(item => dispatch(updatePageItems(item)))
+        for (let i = 0; i < cookieItems.items.length; i++) {
+          const item = cookieItems.items[i];
+          dispatch(updatePageItems(item));
+        }
+      }
+
     }
 
-    const cookieItems = getHeaderCookie();
-    // console.log(totalPricee);
-    // console.log(cookieItems.totalPrice);
-    
-    if (cookieItems.totalPrice !== totalPricee) {
-      console.log('lel');
-      cookieItems.items.map(item => dispatch(updatePageItems(item)))
+    if (isLoaded) {
+      cookieWork();
     }
 
-  }, [dispatch, totalPricee])
+  return () => {
+    setIsLoaded(false);
+  }
+
+  }, [isLoaded, setIsLoaded])
 	
   useEffect(() => {
 

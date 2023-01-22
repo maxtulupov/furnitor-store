@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false, //true
 	env: {
 		API_URL: 'http://localhost:3001'
 	},

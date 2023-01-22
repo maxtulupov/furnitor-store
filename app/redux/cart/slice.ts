@@ -2,14 +2,17 @@ import { createSlice, PayloadAction, current } from '@reduxjs/toolkit';
 import { SliceCartItem, SliceCartState } from '../../../types';
 import { calcTotalPrice } from '../../utils/calcTotalPrice';
 import { getDataLS } from '../../utils/getDataLS'
-import { setCookie, deleteCookie } from 'cookies-next';
+import { setCookie, getCookie } from 'cookies-next';
 
 import Cookies from 'js-cookie'
 
 const saveToCookie = (state) => {
   // deleteCookie('cart', []);
   setCookie('cart', '', []);
-  setCookie('cart', JSON.stringify(state), []);
+  console.log(getCookie('cart'));
+  setCookie('cart', JSON.stringify(state), );
+  console.log(getCookie('cart'));
+  // expires
 };
 
 // const initialState: SliceCartState = getDataLS();
