@@ -35,20 +35,24 @@ const Header:FC<HeaderProps> = (props) => {
   useEffect(() => {
 
     const cookieWork = () => {
-      console.log('eee');
+      // console.log('eee');
 
       const getHeaderCookie = () => {
         const data = Cookies.getJSON('cart');
   
-        if (data !== undefined && data !== '') {
-          console.log(data); 
-  
-          const items = data.items;
-          const totalPrice = data.totalPrice;
-  
-          return {
-            items: items as SliceCartItem[],
-            totalPrice
+        if (data !== undefined) {
+          if (data !== '') {
+            console.log(data); 
+    
+            const items = data.items;
+            const totalPrice = data.totalPrice;
+    
+            return {
+              items: items as SliceCartItem[],
+              totalPrice
+            }
+          } else {
+            return undefined;
           }
         } else {
           return undefined;

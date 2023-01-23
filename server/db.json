@@ -62,7 +62,7 @@
 	],
 	"productList": [
 		{
-			"id": 1,
+			"id": 198,
 			"title": "Прихожая «Сити»",
 			"img": "/img/catalog/catalog-img-01.jpg",
 			"images": [
@@ -92,33 +92,33 @@
       "cat": "ofis-mebel"
 		},
 		{
-			"id": 2,
+			"id": 264,
 			"title": "Прихожая «Сити2»",
 			"img": "/img/catalog/catalog-img-02.png",
 			"price": "96 200",
 			"slug": "product2"
 		},
 		{
-			"id": 3,
+			"id": 326,
 			"title": "Прихожая «Сити3»",
 			"img": "/img/catalog/catalog-img-03.png",
 			"price": "10 200",
 			"slug": "product3"
 		},
 		{
-			"id": 4,
-			"title": "Прихожая «Сити3»",
+			"id": 451,
+			"title": "Прихожая «Сити4»",
 			"img": "/img/catalog/catalog-img-03.png",
 			"price": "10 200",
-			"slug": "product3"
+			"slug": "product4"
 		}
 		,
 		{
-			"id": 5,
-			"title": "Прихожая «Сити3»",
+			"id": 56645,
+			"title": "Прихожая «Сити5»",
 			"img": "/img/catalog/catalog-img-03.png",
 			"price": "10 200",
-			"slug": "product3"
+			"slug": "product5"
 		}
 	],
 	"catList": [

@@ -45,7 +45,7 @@ const Similar:FC<SimilarProps> = ({productsList, isModal, setModal}) => {
 				>
 					{productsList && productsList.map(({id, title, slug, img, images, price}) => (
 						<SwiperSlide key={id} className={cl(styles.similarProducts__slide, "swiper-slide")}>
-							<CatalogItem title={title} slug={slug} img={img} images={images} price={price} isModal={isModal} setModal={setModal} />
+							<CatalogItem id={id} title={title} slug={slug} img={img} images={images} price={price} isModal={isModal} setModal={setModal} />
 						</SwiperSlide>
 					))}
 				</Swiper>

@@ -6,7 +6,9 @@ import cl from "classnames";
 import Link from "next/link";
 import CartOneItem from "./CartOneItem/CartOneItem";
 import { FC, useState } from "react"
-import { CatListAside, IsModal, NaviLinks, OneProduct } from "../../../../types";
+import { CatListAside, IsModal, NaviLinks, OneProduct, SliceCartItem, SliceState } from "../../../../types";
+
+import { useSelector } from "react-redux"
 
 interface CartProps {
   naviLinks: NaviLinks[],
@@ -17,6 +19,10 @@ interface CartProps {
 const Cart:FC<CartProps> = (props) => {
 	const [isModal, setModal] = useState<IsModal>({ open: false, title: 'kek', slug: 'test', price: '9999', images: [], img: '/img/about/about-image.png'});
 
+  const storeItems = useSelector<SliceState, SliceCartItem[]>((state) => state.cart.items);
+
+  const cartSumm = useSelector<SliceState>((state) => state.cart.totalPrice);
+
 	return (
 		<Layout naviLinks={props.naviLinks} catList={props.catList} isModal={isModal} setModal={setModal}>
 			<main className="main">
@@ -26,31 +32,31 @@ const Cart:FC<CartProps> = (props) => {
 						<h1 className={styles.cartPage__title}>Корзина</h1>
 						<div className={styles.cartPage__content}>
 							<div className={styles.cartPage__left}>
-								{props.productsList && props.productsList.map(({id, title, slug, img, price}) => (
-									<CartOneItem key={id} title={title} slug={slug} img={img} price={price} />
+                {storeItems && storeItems.map(({id, title, slug, img, price, count}) => (
+									<CartOneItem key={id} id={id} title={title} slug={slug} img={img} price={price} count={count} />
 								))}
 							</div>
 							<div className={cl(styles.cartPage__right, styles.rightCartPage)}>
 								<div className={styles.rightCartPage__content}>
 									<div className={styles.rightCartPage__title}>
 										Ваш заказ
-										<div className={styles.rightCartPage__count}><span>3</span> товара</div>
+										<div className={styles.rightCartPage__count}><span>{storeItems.length}</span> товара</div>
 									</div>
 									<div className={cl(styles.rightCartPage__item, styles.itemRightCart)}>
 										<div className={styles.itemRightCart__title}>Сумма заказа:</div>
 										<div className={styles.itemRightCart__number}>
-											<span>35 600</span> ₽
+											<span>{cartSumm.toString().replace(/(\d{1,3}(?=(?:\d\d\d)+(?!\d)))/g, "$1" + ' ')}</span> ₽
 										</div>
 									</div>
-									<div className={cl(styles.rightCartPage__item, styles.itemRightCart, styles.itemRightCartSale)}>
+									{/* <div className={cl(styles.rightCartPage__item, styles.itemRightCart, styles.itemRightCartSale)}>
 										<div className={styles.itemRightCart__title}>Скидка:</div>
 										<div className={styles.itemRightCart__number}>
 											<span>– 1 000</span> ₽
 										</div>
-									</div>
+									</div> */}
 									<div className={cl(styles.rightCartPage__total, styles.totalRightCart)}>
 										<div className={styles.totalRightCart__title}>Итого</div>
-										<div className={styles.totalRightCart__number}><span>34 600</span> ₽</div>
+										<div className={styles.totalRightCart__number}><span>{cartSumm.toString().replace(/(\d{1,3}(?=(?:\d\d\d)+(?!\d)))/g, "$1" + ' ')}</span> ₽</div>
 									</div>
 									<Link href="/checkout" className={styles.rightCartPage__checkoutLink}>Оформить заказ</Link>
 									<div className={styles.rightCartPage__desc}>Оформление заказа займёт всего 1–2 минуты</div>

@@ -1,42 +1,18 @@
 import styles from "../quantity/Quantity.module.scss"
 import cl from "classnames"
-import { useState, FC, useEffect } from 'react';
-import { useDispatch, useSelector } from "react-redux";
-import { addItem, minusItem } from "../../../redux/cart/slice";
-import { SliceCartItem } from "../../../../types";
+import { useState, FC } from 'react';
 
-interface Quantity {
+interface QuantityModal {
   addStyle?: string,
-  count?: number,
-  idItem: number,
-  item: SliceCartItem
 }
 
-const Quantity:FC<Quantity> = ({ addStyle, count, idItem, item }) => {
-  const dispatch = useDispatch();
-
+const QuantityModal:FC<QuantityModal> = ({ addStyle }) => {
 	const [inputValue, setInputValue] = useState<number>(1);
 
   const onClickMinusItem = () => {
-    if (inputValue !== 1) {
-      setInputValue(inputValue - 1);
-
-      dispatch(minusItem(idItem));
-    }
+    if (inputValue !== 1) setInputValue(inputValue - 1);
   }
-
-  const onClickPlusItem = () => {
-    setInputValue(inputValue + 1);
-    
-    dispatch(addItem(item));
-  }
-
-
-  useEffect(() => {
-    if (count > 1) {
-      setInputValue(count);
-    }
-  }, [count, setInputValue])
+  const onClickPlusItem = () => setInputValue(inputValue + 1)
 
 	return (
 		<div className={cl(styles.quantity, addStyle ? addStyle : styles.productPage__quantity)}>
@@ -57,4 +33,4 @@ const Quantity:FC<Quantity> = ({ addStyle, count, idItem, item }) => {
 	)
 }
 
-export default Quantity
+export default QuantityModal

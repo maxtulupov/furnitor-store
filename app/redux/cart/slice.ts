@@ -1,18 +1,13 @@
 import { createSlice, PayloadAction, current } from '@reduxjs/toolkit';
 import { SliceCartItem, SliceCartState } from '../../../types';
 import { calcTotalPrice } from '../../utils/calcTotalPrice';
-import { getDataLS } from '../../utils/getDataLS'
 import { setCookie, getCookie } from 'cookies-next';
 
-import Cookies from 'js-cookie'
-
 const saveToCookie = (state) => {
-  // deleteCookie('cart', []);
   setCookie('cart', '', []);
-  console.log(getCookie('cart'));
+  // console.log(getCookie('cart'));
   setCookie('cart', JSON.stringify(state), );
-  console.log(getCookie('cart'));
-  // expires
+  // console.log(getCookie('cart'));
 };
 
 // const initialState: SliceCartState = getDataLS();
@@ -25,13 +20,18 @@ const cartSlice = createSlice({
   },
   reducers: {
     updatePageItems(state, action: PayloadAction<SliceCartItem>) {
-      state.items.push({
-        ...action.payload
-      });
+      const findItem = state.items.find((elem) => elem.id === action.payload.id);
 
-      state.totalPrice = calcTotalPrice(state.items);
+      if (!findItem) {
+        state.items.push({
+          ...action.payload
+        });
 
-      saveToCookie(state);
+        state.totalPrice = calcTotalPrice(state.items);
+
+        saveToCookie(state);
+      }
+
     },
     addItem(state, action: PayloadAction<SliceCartItem>) {
       const findItem = state.items.find((elem) => elem.id === action.payload.id);
@@ -48,9 +48,29 @@ const cartSlice = createSlice({
       state.totalPrice = calcTotalPrice(state.items);
       saveToCookie(state);
     },
-    minusItem(state, action: PayloadAction<string>) {},
-    removeItem(state, action: PayloadAction<string>) {},
-    clearItems(state) {},
+    minusItem(state, action: PayloadAction<number>) {
+      const findItem = state.items.find((obj) => obj.id === action.payload);
+
+      if (findItem) {
+        findItem.count--;
+
+        state.totalPrice = calcTotalPrice(state.items);
+        saveToCookie(state);
+      }
+
+    },
+    removeItem(state, action: PayloadAction<number>) {
+      state.items = state.items.filter((obj) => obj.id !== action.payload);
+      state.totalPrice = calcTotalPrice(state.items);
+
+      saveToCookie(state);
+    },
+    clearItems(state) {
+      state.items = [];
+      state.totalPrice = 0;
+
+      saveToCookie(state);
+    },
   },
 });
 

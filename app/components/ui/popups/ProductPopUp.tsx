@@ -6,10 +6,10 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import Quantity from "../quantity/Quantity";
 import Link from "next/link";
 import Image from "next/image";
 import { OneProductImages } from "../../../../types";
+import QuantityModal from "../quantity/QuantityModal";
 
 interface ProductPopUpProps {
   isVisible: boolean,
@@ -171,7 +171,7 @@ const ProductPopUp:FC<ProductPopUpProps> = ({ isVisible = false, title, slug, pr
 							<form action="">
 								<div className={styles.bottomPopupProduct__top}>
 									<div className={styles.rightPopupProduct__price}><span>{price}</span> ₽</div>
-									<Quantity addStyle={styles.rightPopupProduct__quantity} />
+									<QuantityModal addStyle={styles.rightPopupProduct__quantity} />
 								</div>
 								<button type="submit" className={styles.bottomPopupProduct__submit}>В корзину</button>
 							</form>
