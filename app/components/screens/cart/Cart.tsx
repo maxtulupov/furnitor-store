@@ -17,7 +17,7 @@ interface CartProps {
 }
 
 const Cart:FC<CartProps> = (props) => {
-	const [isModal, setModal] = useState<IsModal>({ open: false, title: 'kek', slug: 'test', price: '9999', images: [], img: '/img/about/about-image.png'});
+	const [isModal, setModal] = useState<IsModal>({ open: false, id: 0, title: 'kek', slug: 'test', price: '9999', images: [], img: '/img/about/about-image.png'});
 
   const storeItems = useSelector<SliceState, SliceCartItem[]>((state) => state.cart.items);
 

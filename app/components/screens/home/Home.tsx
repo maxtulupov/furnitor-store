@@ -18,7 +18,7 @@ interface HomeProps {
 }
 
 const Home:FC<HomeProps> = (props) => {
-	const [isModal, setModal] = useState<IsModal>({ open: false, title: 'kek', slug: 'test', price: '9999', images: [], img: '/img/about/about-image.png'});
+	const [isModal, setModal] = useState<IsModal>({ open: false, id: 0, title: 'kek', slug: 'test', price: '9999', images: [], img: '/img/about/about-image.png'});
 
 	return (
 		<Layout naviLinks={props.naviLinks} isModal={isModal} setModal={setModal} catList={props.catList}>

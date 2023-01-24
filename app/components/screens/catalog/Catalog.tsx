@@ -23,7 +23,7 @@ const Catalog:FC<CatalogProps> = (props) => {
 		{ value: 'price', label: 'по цене', id: 'sd3' }
 	]
 
-	const [isModal, setModal] = useState<IsModal>({ open: false, title: 'kek', slug: 'test', price: '9999', images: [], img: '/img/about/about-image.png'});
+	const [isModal, setModal] = useState<IsModal>({ open: false, id: 0, title: 'kek', slug: 'test', price: '9999', images: [], img: '/img/about/about-image.png'});
 
 	return (
 		<Layout naviLinks={props.naviLinks} isModal={isModal} setModal={setModal} catList={props.catList} >
@@ -39,7 +39,7 @@ const Catalog:FC<CatalogProps> = (props) => {
 						</div>
 						<div className={styles.catalogPage__content}>
 							{props.productsList && props.productsList.map(({id, title, slug, img, price, images}) => (
-								<CatalogItem key={id} title={title} slug={slug} img={img} price={price} images={images} isModal={isModal} setModal={setModal} />
+								<CatalogItem key={id} id={id} title={title} slug={slug} img={img} price={price} images={images} isModal={isModal} setModal={setModal} />
 							))}
 						</div>
 						<Pagi />

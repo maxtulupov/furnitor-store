@@ -35,15 +35,12 @@ const Header:FC<HeaderProps> = (props) => {
   useEffect(() => {
 
     const cookieWork = () => {
-      // console.log('eee');
 
       const getHeaderCookie = () => {
         const data = Cookies.getJSON('cart');
   
         if (data !== undefined) {
           if (data !== '') {
-            console.log(data); 
-    
             const items = data.items;
             const totalPrice = data.totalPrice;
     
@@ -63,7 +60,6 @@ const Header:FC<HeaderProps> = (props) => {
       const cookieItems = getHeaderCookie();
       
       if (cookieItems !== undefined) {
-        console.log('lel');
         // cookieItems.items.map(item => dispatch(updatePageItems(item)))
         for (let i = 0; i < cookieItems.items.length; i++) {
           const item = cookieItems.items[i];
@@ -85,7 +81,7 @@ const Header:FC<HeaderProps> = (props) => {
 	
   useEffect(() => {
 
-		const onScroll = (e) => {	
+		const onScroll = () => {	
 			clearTimeout(timer.current);
 
 			if (window.scrollY >= 200) {
@@ -114,7 +110,6 @@ const Header:FC<HeaderProps> = (props) => {
 			document.addEventListener('windowScroll', onScroll, { passive: true });
 			return () => {
 				document.removeEventListener('windowScroll', onScroll)
-				// window.removeEventListener('scroll', () => document.dispatchEvent(windowScroll))
 			};
 	}, [isHeaderShow, timer, headerShowTimer, offset]);
 

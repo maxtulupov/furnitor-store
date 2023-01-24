@@ -1,10 +1,11 @@
 export interface IsModal {
-  open: boolean;
-  title: string;
-  slug: string;
-  price: string;
-  images: OneProductImages[];
-  img: string;
+  open: boolean,
+  id: number,
+  title: string,
+  slug: string,
+  price: string,
+  images: OneProductImages[],
+  img: string
 }
 
 export interface OneProduct {

@@ -9,12 +9,14 @@ import YaMap from "../home/yamap/YaMap"
 import cl from "classnames";
 import styles from "../product/Product.module.scss"
 import Link from "next/link";
-import Quantity from "../../ui/quantity/Quantity";
 import Image from "next/image";
 import Breadcrumbs from "../../ui/breadcrumbs/Breadcrumbs";
 import Similar from "./similar/Similar";
 import { FC } from 'react';
-import { CatListAside, IsModal, NaviLinks, OneProduct } from "../../../../types";
+import { CatListAside, IsModal, NaviLinks, OneProduct, SliceCartItem } from "../../../../types";
+import QuantityModal from "../../ui/quantity/QuantityModal";
+import { addItem } from "../../../redux/cart/slice";
+import { useDispatch } from "react-redux";
 
 interface ProductProps {
   naviLinks: NaviLinks[],
@@ -27,7 +29,21 @@ interface ProductProps {
 const Product:FC<ProductProps> = (props) => {
 	const product = props.productInfo;
 	const [thumbsSwiper, setThumbsSwiper] = useState(null);
-	const [isModal, setModal] = useState<IsModal>({ open: false, title: 'kek', slug: 'test', price: '9999', images: [], img: '/img/about/about-image.png'});
+	const [isModal, setModal] = useState<IsModal>({ open: false, id: 0, title: 'kek', slug: 'test', price: '9999', images: [], img: '/img/about/about-image.png'});
+  const [inputValue, setInputValue] = useState<number>(1);
+  const dispatch = useDispatch();
+
+  const addItemOnClick = () => {
+    const thisItem: SliceCartItem = {
+      id: product.id, 
+      title: product.title, 
+      img: product.img, 
+      price: product.price, 
+      slug: product.slug, 
+      count: inputValue
+    };
+    dispatch(addItem(thisItem));
+  };
 
 
 	return (
@@ -123,10 +139,10 @@ const Product:FC<ProductProps> = (props) => {
 								<div className={styles.productPage__price}>
 									<span>{product.price}</span> ₽
 								</div>
-								<form method="" className={styles.productPage__form}>
-									<Quantity />
-									<button className={styles.productPage__buy}>В корзину</button>
-								</form>
+								<div className={styles.productPage__form}>
+									<QuantityModal inputValue={inputValue} setInputValue={setInputValue} />
+									<button className={styles.productPage__buy} onClick={addItemOnClick}>В корзину</button>
+								</div>
 							</div>
 						</div>
 						<div className={cl(styles.productPage__text, styles.textProduct)}>

@@ -8,11 +8,14 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import Link from "next/link";
 import Image from "next/image";
-import { OneProductImages } from "../../../../types";
+import { OneProductImages, SliceCartItem } from "../../../../types";
 import QuantityModal from "../quantity/QuantityModal";
+import { useDispatch } from "react-redux";
+import { addItem } from "../../../redux/cart/slice";
 
 interface ProductPopUpProps {
   isVisible: boolean,
+  id: number,
   title: string,
   slug: string,
   price: string,
@@ -22,7 +25,7 @@ interface ProductPopUpProps {
   addStyle?: string
 }
 
-const ProductPopUp:FC<ProductPopUpProps> = ({ isVisible = false, title, slug, price, images, img, onClose }) => {
+const ProductPopUp:FC<ProductPopUpProps> = ({ isVisible = false, id, title, slug, price, images, img, onClose }) => {
 
 	const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
 
@@ -54,6 +57,21 @@ const ProductPopUp:FC<ProductPopUpProps> = ({ isVisible = false, title, slug, pr
 			thisDoc.classList.remove('lock');
 		}
 	};
+
+  const [inputValue, setInputValue] = useState<number>(1);
+  const dispatch = useDispatch();
+
+  const addItemOnClick = () => {
+    const thisItem: SliceCartItem = {
+      id: id, 
+      title: title, 
+      img: img, 
+      price: price, 
+      slug: slug, 
+      count: inputValue
+    };
+    dispatch(addItem(thisItem));
+  };
 
 
 	useEffect(() => {
@@ -168,13 +186,13 @@ const ProductPopUp:FC<ProductPopUpProps> = ({ isVisible = false, title, slug, pr
 							</div>
 						</div>
 						<div className={cl(styles.rightPopupProduct__bottom, styles.bottomPopupProduct)}>
-							<form action="">
+							<div>
 								<div className={styles.bottomPopupProduct__top}>
 									<div className={styles.rightPopupProduct__price}><span>{price}</span> ₽</div>
-									<QuantityModal addStyle={styles.rightPopupProduct__quantity} />
+									<QuantityModal addStyle={styles.rightPopupProduct__quantity} inputValue={inputValue} setInputValue={setInputValue} />
 								</div>
-								<button type="submit" className={styles.bottomPopupProduct__submit}>В корзину</button>
-							</form>
+								<button type="submit" className={styles.bottomPopupProduct__submit} onClick={addItemOnClick}>В корзину</button>
+							</div>
 						</div>
 					</div>
 				</div>

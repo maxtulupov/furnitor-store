@@ -4,11 +4,11 @@ import { useState, FC } from 'react';
 
 interface QuantityModal {
   addStyle?: string,
+  inputValue: number,
+  setInputValue: (value: number) => void
 }
 
-const QuantityModal:FC<QuantityModal> = ({ addStyle }) => {
-	const [inputValue, setInputValue] = useState<number>(1);
-
+const QuantityModal:FC<QuantityModal> = ({ addStyle, inputValue, setInputValue }) => {
   const onClickMinusItem = () => {
     if (inputValue !== 1) setInputValue(inputValue - 1);
   }

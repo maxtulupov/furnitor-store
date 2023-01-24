@@ -37,7 +37,7 @@ const CatalogItem:FC<CatalogItemProps> = (props) => {
 	return (
 		<article className={styles.itemCatalog}>
 			<div className={styles.itemCatalog__content}>
-				<div data-popup="#popup-product" onClick={() => props.setModal({open: true, title: props.title, slug: props.slug, price: props.price, images: props.images, img: props.img})} className={cl(styles.itemCatalog__top, 'popupProductClick')}>
+				<div data-popup="#popup-product" onClick={() => props.setModal({open: true, id: props.id, title: props.title, slug: props.slug, price: props.price, images: props.images, img: props.img})} className={cl(styles.itemCatalog__top, 'popupProductClick')}>
 					<div className={styles.itemCatalog__photo}>
 						<Image 
 							src={props.img} 

@@ -28,6 +28,7 @@ const Layout:FC<LayoutProps> = ({ children, naviLinks, isModal, setModal, catLis
           {isModal &&
             <ProductPopUp
               isVisible={isModal.open}
+              id={isModal.id}
               title={isModal.title}
               slug={isModal.slug}
               price={isModal.price}

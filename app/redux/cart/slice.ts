@@ -1,16 +1,13 @@
-import { createSlice, PayloadAction, current } from '@reduxjs/toolkit';
-import { SliceCartItem, SliceCartState } from '../../../types';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { SliceCartItem } from '../../../types';
 import { calcTotalPrice } from '../../utils/calcTotalPrice';
-import { setCookie, getCookie } from 'cookies-next';
+import { setCookie } from 'cookies-next';
+import { WritableDraft } from 'immer/dist/internal';
 
-const saveToCookie = (state) => {
-  setCookie('cart', '', []);
-  // console.log(getCookie('cart'));
-  setCookie('cart', JSON.stringify(state), );
-  // console.log(getCookie('cart'));
+const saveToCookie = (state: WritableDraft<{ items: any[]; totalPrice: number; }>) => {
+  setCookie('cart', '');
+  setCookie('cart', JSON.stringify(state));
 };
-
-// const initialState: SliceCartState = getDataLS();
 
 const cartSlice = createSlice({
   name: 'cart',
