@@ -3,8 +3,10 @@ import Breadcrumbs from "../../ui/breadcrumbs/Breadcrumbs";
 import styles from "../Checkout/Checkout.module.scss"
 import cl from "classnames";
 import Link from "next/link";
-import { FC } from 'react';
-import { CatListAside, NaviLinks } from "../../../../types";
+import { FC, useState, useEffect } from 'react';
+import { CatListAside, NaviLinks, SliceCartItem, SliceState } from "../../../../types";
+import { useSelector } from "react-redux";
+import CheckoutItem from "./CheckoutItem";
 
 interface CheckoutProps {
   naviLinks: NaviLinks[],
@@ -12,29 +14,62 @@ interface CheckoutProps {
 }
 
 const Checkout:FC<CheckoutProps> = (props) => {
+  const storeItems = useSelector<SliceState, SliceCartItem[]>((state) => state.cart.items);
+  const cartSumm = useSelector<SliceState>((state) => state.cart.totalPrice);
+
+  const [formState, setFormState] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    deliveryMethod: 'delivery1',
+    adress: '',
+    dateDelivery: '',
+    timeDelivery: '',
+    payMethod: ''
+  });
+
+  const handler = (e) => {
+    // console.log(e.target.value);
+    setFormState({...formState, [e.target.name]: e.target.value});
+    // console.log(formState);
+  }
+
+  // name: 'Максим',
+  //   phone: '+77777778778',
+  //   email: 'sibir@sibir.ru',
+  //   deliveryMethod: 'pickUp',
+  //   adress: 'sdsd',
+  //   dateDelivery: '',
+  //   timeDelivery: '',
+  //   payMethod: 'sitePay'
+
+  // useEffect(() => {
+  //   console.log(formState);
+  // }, [formState])
+
 	return (
 		<Layout naviLinks={props.naviLinks} catList={props.catList}>
 			<main className="main">
 				<Breadcrumbs pageTitle="Оформление заказа" />
         <section className={styles.checkout}>
           <div className="container">
-            <form action="" className={styles.checkout__content} id="">
+            <div className={styles.checkout__content}>
               <div className={cl(styles.checkout__left, styles.leftCheckout)}>
                 <h1 className={styles.checkout__title}>Оформление заказа</h1>
                 <div className={cl(styles.leftCheckout__items, styles.itemsLeftCheckout)}>
                   <h2 className={styles.itemsLeftCheckout__title}>Данные получателя</h2>
                   <div className={styles.itemsLeftCheckout__two}>
                     <div className={styles.itemsLeftCheckoutInput}>
-                      <input autoComplete="off" type="text" name="" id="" placeholder="Имя" className={styles.input} required />
+                      <input onChange={handler} value={formState.name} autoComplete="off" type="text" name="name" placeholder="Имя" className={styles.input} required />
                       <div className={styles.inputErrorMessage}>Обязательное поле</div>
                     </div>
                     <div className={styles.itemsLeftCheckoutInput}>
-                      <input autoComplete="off" type="tel" name="" id="" placeholder="Номер телефона" className={styles.input} required />
+                      <input onChange={handler} value={formState.phone} autoComplete="off" type="tel" name="phone" placeholder="Номер телефона" className={styles.input} required />
                       <div className={styles.inputErrorMessage}>Укажите номер телефона</div>
                     </div>
                   </div>
                   <div className={cl(styles.itemsLeftCheckoutInput, styles.itemsLeftCheckoutInput__email)}>
-                    <input autoComplete="off" type="email" name="" id="" placeholder="Почта" className={styles.input} required />
+                    <input onChange={handler} value={formState.email} autoComplete="off" type="email" name="email" id="" placeholder="Почта" className={styles.input} required />
                     <div className={styles.inputErrorMessage}>Укажите вашу почту</div>
                   </div>
                 </div>
@@ -42,15 +77,15 @@ const Checkout:FC<CheckoutProps> = (props) => {
                   <h2 className={styles.itemsLeftCheckout__title}>Способ доставки</h2>
                   <div className={styles.itemsLeftCheckout__content}>
                     <div className={cl(styles.itemsLeftCheckout__delivery, styles.deliveryMethod, styles.deliveryMethod__adres)}>
-                      <input type="radio" name="delivery" value="" id="delivery-1" checked />
-                      <label htmlFor="delivery-1">
+                      <input type="radio" name="deliveryMethod" value="delivery1" id="delivery1" onClick={handler} defaultChecked={formState.deliveryMethod === 'delivery1' ? true : false} />
+                      <label htmlFor="delivery1">
                         <span className={styles.deliveryMethod__title}>Доставка</span>
                         <span className={styles.deliveryMethod__text}>Наша служба доставки привезёт заказ в назначенное время</span>
                       </label>
                     </div>
                     <div className={cl(styles.itemsLeftCheckout__delivery, styles.deliveryMethod, styles.deliveryMethod__pickup)}>
-                      <input type="radio" name="delivery" value="" id="delivery-2" />
-                      <label htmlFor="delivery-2">
+                      <input type="radio" name="deliveryMethod" value="pickUp" id="pickUp" onClick={handler} defaultChecked={formState.deliveryMethod === 'pickUp' ? true : false} />
+                      <label htmlFor="pickUp">
                         <span className={styles.deliveryMethod__title}>Самовывоз</span>
                         <span className={styles.deliveryMethod__text}>Заберите заказ бесплатно из магазина</span>
                       </label>
@@ -130,27 +165,14 @@ const Checkout:FC<CheckoutProps> = (props) => {
                 <div className={styles.rightCartPage__content}>
                   <div className={styles.rightCartPage__title}>
                     Ваш заказ
-                    <div className={styles.rightCartPage__count}><span>3</span> товара</div>
+                    <div className={styles.rightCartPage__count}><span>{storeItems.length}</span> товара</div>
                   </div>
-                  <div className={cl(styles.checkoutRight__item, styles.itemCheckoutRight)}>
-                    <div className={styles.itemCheckoutRight__left}>
-                      <div className={styles.itemCheckoutRight__title}>Модульная система «Ки-ки» СТД 1070.1 (ДСВ)</div>
-                      <div className={styles.itemCheckoutRight__count}>
-                        <span>2</span> шт
-                      </div>
-                    </div>
-                    <div className={styles.itemCheckoutRight__right}>
-                      <div className={styles.itemCheckoutRight__price}>
-                        <span>19 200</span> ₽
-                      </div>
-                      <div className={styles.itemCheckoutRight__oldPrice}>
-                        <span>20 200</span> ₽
-                      </div>
-                    </div>
-                  </div>
+                  {storeItems && storeItems.map(({id, title, slug, img, price, count}) => (
+                    <CheckoutItem key={id} id={id} title={title} price={price} count={count} />
+                  ))}
                   <div className={cl(styles.rightCartPage__total, styles.totalRightCart)}>
                     <div className={styles.totalRightCart__title}>Итого</div>
-                    <div className={styles.totalRightCart__number}><span>34 600</span> ₽</div>
+                    <div className={styles.totalRightCart__number}><span>{cartSumm.toString().replace(/(\d{1,3}(?=(?:\d\d\d)+(?!\d)))/g, "$1" + ' ')}</span> ₽</div>
                   </div>
                   <button type="submit" className={styles.rightCartPage__submit}>
                     Подтвердить заказ
@@ -158,7 +180,7 @@ const Checkout:FC<CheckoutProps> = (props) => {
                   <div className={styles.rightCartPage__desc}>Нажимая кнопку, я даю согласие на <Link href="/">обработку персональных данных</Link></div>
                 </div>
               </div>
-            </form>
+            </div>
           </div>
         </section>
 			</main>

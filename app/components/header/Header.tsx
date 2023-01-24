@@ -27,6 +27,7 @@ const Header:FC<HeaderProps> = (props) => {
 	const [menuOpen, setMenuOpen] = useState<Boolean>(false);
 
   const totalPricee = useSelector<SliceState>((state) => state.cart.totalPrice);
+  const storeItems = useSelector<SliceState, SliceCartItem[]>((state) => state.cart.items);
 
   const dispatch = useDispatch();
 
@@ -168,7 +169,7 @@ const Header:FC<HeaderProps> = (props) => {
 								<path d="M19.4204 34.5749C16.6597 34.5749 14.3838 36.8512 14.3838 39.6115C14.3838 42.3722 16.66 44.6481 19.4204 44.6481C22.181 44.6484 24.4573 42.3722 24.4573 39.6115C24.4573 36.8512 22.181 34.5749 19.4204 34.5749ZM19.4204 41.5972C18.3065 41.5972 17.4346 40.7257 17.4346 39.6115C17.4346 38.4977 18.3062 37.6258 19.4204 37.6258C20.5342 37.6258 21.4061 38.4973 21.4061 39.6115C21.4061 40.677 20.4858 41.5972 19.4204 41.5972Z" fill="#1D1D1D"/>
 								<path d="M36.0804 34.5749C33.3197 34.5749 31.0438 36.8512 31.0438 39.6115C31.0438 42.3722 33.32 44.6481 36.0804 44.6481C38.8411 44.6481 41.1169 42.3718 41.1169 39.6115C41.0686 36.8512 38.8411 34.5749 36.0804 34.5749ZM36.0804 41.5972C34.9666 41.5972 34.0947 40.7257 34.0947 39.6115C34.0947 38.4977 34.9662 37.6258 36.0804 37.6258C37.1942 37.6258 38.0661 38.4973 38.0661 39.6115C38.0661 40.677 37.1459 41.5972 36.0804 41.5972Z" fill="#1D1D1D"/>
 							</svg>
-							<span className={styles.count}>2</span>
+							<span className={styles.count}>{storeItems.length}</span>
 						</div>
 						<div className={styles.cartHeader__text}>
 							<div className={styles.cartHeader__title}>
