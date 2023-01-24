@@ -156,7 +156,7 @@ const Checkout:FC<CheckoutProps> = (props) => {
                       <label htmlFor="pay-2">
                         <span className={styles.payMethod__title}>Наличными курьеру</span>
                         <span className={styles.payMethod__img}>При получении заказа</span>
-                      </label>
+                      </label> 
                     </div>
                   </div>
                 </div>
