@@ -10,7 +10,7 @@ import CheckoutItem from "./CheckoutItem";
 
 import InputMask from 'react-input-mask';
 
-import { Formik } from 'formik';
+import { Field, Formik } from 'formik';
 
 interface CheckoutProps {
   naviLinks: NaviLinks[],
@@ -27,29 +27,61 @@ interface FormStateProps {
   payMethod: string
 }
 
+interface FormInputsValue {
+  name: string,
+  phone: string,
+  email: string,
+	deliveryMethod: string,
+	payMethod: string,
+	houseNumber: string
+}
+
 const Checkout:FC<CheckoutProps> = (props) => {
   const storeItems = useSelector<SliceState, SliceCartItem[]>((state) => state.cart.items);
   const cartSumm = useSelector<SliceState>((state) => state.cart.totalPrice);
 
-  const [formState, setFormState] = useState<FormStateProps>({
-    name: '',
+	const initialValues: FormInputsValue = {
+		name: '',
     phone: '',
     email: '',
-    deliveryMethod: 'delivery1',
-    adress: '',
-    dateDelivery: '',
-    payMethod: 'card'
-  });
+		deliveryMethod: 'delivery1',
+		payMethod: 'card',
+		houseNumber: ''
+	}
 
-  const handler = (e) => {
-    // console.log(e.target.value);
-    setFormState({...formState, [e.target.name]: e.target.value});
-    // console.log(formState);
-  }
 
   const submitHandler = () => {
 
   };
+
+	const validate = (values?: FormInputsValue) => {
+		const errors = {
+			name: '',
+    	phone: '',
+    	email: '',
+			houseNumber: '',
+		};
+
+		if (!values.name) {
+			errors.name = 'Это обязательное поле';
+		}
+
+		if (!values.phone) {
+			errors.phone = 'Это обязательное поле';
+		} else if (values.phone.length !== 17) {
+			errors.phone = 'Неверный номер телефона';
+		}
+	
+		if (!values.email) {
+			errors.email = 'Укажите вашу почту';
+		} else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+			errors.email = 'Неверный email адрес';
+		}
+	
+		//...
+	
+		return errors;
+	};
 
   // name: 'Максим',
   //   phone: '+77777778778',
@@ -70,16 +102,15 @@ const Checkout:FC<CheckoutProps> = (props) => {
 				<Breadcrumbs pageTitle="Оформление заказа" />
         <section className={styles.checkout}>
           <div className="container">
-            <Formik>
-            {({alues,
-              errors,
-              touched,
-              handleChange,
-              handleBlur,
-              handleSubmit,
-              isSubmitting,
-              /* and other goodies */
-            }) => (
+            <Formik
+							initialValues={initialValues}
+							validate={validate}
+							onSubmit={(values, actions) => {
+								
+								console.log(values);
+							}}
+						>
+            {({ errors, touched, values }) => (
               <form className={styles.checkout__content}>
                 <div className={cl(styles.checkout__left, styles.leftCheckout)}>
                   <h1 className={styles.checkout__title}>Оформление заказа</h1>
@@ -87,31 +118,50 @@ const Checkout:FC<CheckoutProps> = (props) => {
                     <h2 className={styles.itemsLeftCheckout__title}>Данные получателя</h2>
                     <div className={styles.itemsLeftCheckout__two}>
                       <div className={styles.itemsLeftCheckoutInput}>
-                        <input onChange={handler} value={formState.name} autoComplete="off" type="text" name="name" placeholder="Имя" className={styles.input} required />
-                        <div className={styles.inputErrorMessage}>Обязательное поле</div>
+                        <Field autoComplete="off" type="text" name="name" placeholder="Имя" className={cl(styles.input, errors.name && touched.name ? styles.inputError : null)} required />
+												{errors.name && touched.name ? (
+												<div className={styles.inputErrorMessage}>{errors.name}</div>
+											) : null}
                       </div>
                       <div className={styles.itemsLeftCheckoutInput}>
-                        <InputMask mask="+7\(999)-999-99-99" value={formState.phone} autoComplete="off" name="phone" onChange={handler} className={styles.input} placeholder="Номер телефона" />
-                        <div className={styles.inputErrorMessage}>Укажите номер телефона</div>
+												<Field
+													name="phone"
+													required
+													render={({ field }) => (
+														<InputMask
+															{...field}
+															mask="+7\(999)-999-99-99"
+															placeholder="Номер телефона"
+															type="tel"
+															className={cl(styles.input, errors.phone && touched.phone ? styles.inputError : null)}
+															required
+														/>
+													)}
+												/>
+												{errors.phone && touched.phone ? (
+												<div className={styles.inputErrorMessage}>{errors.phone}</div>
+											) : null}
                       </div>
                     </div>
                     <div className={cl(styles.itemsLeftCheckoutInput, styles.itemsLeftCheckoutInput__email)}>
-                      <input onChange={handler} value={formState.email} autoComplete="off" type="email" name="email" id="" placeholder="Почта" className={styles.input} required />
-                      <div className={styles.inputErrorMessage}>Укажите вашу почту</div>
+                      <Field type="email" name="email" id="" placeholder="Почта" className={cl(styles.input, { [styles.inputError]: errors.email && touched.email} )} required />
+											{errors.email && touched.email ? (
+												<div className={styles.inputErrorMessage}>{errors.email}</div>
+											) : null}
                     </div>
                   </div>
                   <div className={cl(styles.leftCheckout__items, styles.itemsLeftCheckout)}>
                     <h2 className={styles.itemsLeftCheckout__title}>Способ доставки</h2>
                     <div className={styles.itemsLeftCheckout__content}>
                       <div className={cl(styles.itemsLeftCheckout__delivery, styles.deliveryMethod, styles.deliveryMethod__adres)}>
-                        <input type="radio" name="deliveryMethod" value="delivery1" id="delivery1" onClick={handler} defaultChecked={formState.deliveryMethod === 'delivery1' ? true : false} />
+                        <Field type="radio" name="deliveryMethod" value="delivery1" id="delivery1" />
                         <label htmlFor="delivery1">
                           <span className={styles.deliveryMethod__title}>Доставка</span>
                           <span className={styles.deliveryMethod__text}>Наша служба доставки привезёт заказ в назначенное время</span>
                         </label>
                       </div>
                       <div className={cl(styles.itemsLeftCheckout__delivery, styles.deliveryMethod, styles.deliveryMethod__pickup)}>
-                        <input type="radio" name="deliveryMethod" value="pickUp" id="pickUp" onClick={handler} defaultChecked={formState.deliveryMethod === 'pickUp' ? true : false} />
+                        <Field type="radio" name="deliveryMethod" value="pickUp" id="pickUp" />
                         <label htmlFor="pickUp">
                           <span className={styles.deliveryMethod__title}>Самовывоз</span>
                           <span className={styles.deliveryMethod__text}>Заберите заказ бесплатно из магазина</span>
@@ -119,64 +169,72 @@ const Checkout:FC<CheckoutProps> = (props) => {
                       </div>
                     </div>
                   </div>
-                  {
-                    formState.deliveryMethod === 'delivery1' &&
-                    <div className={cl(styles.leftCheckout__items, styles.itemsLeftCheckout)}>
-                      <h2 className={styles.itemsLeftCheckout__title}>Адрес доставки</h2>
-                      <div className={cl(styles.itemsLeftCheckoutInput, styles.itemsLeftCheckoutInput__adress)}>
-                        <input autoComplete="off" type="text" name="" id="" placeholder="Населённый пункт, улица" className={styles.input} required />
-                        <div className={styles.inputErrorMessage}>Обязательное поле</div>
-                      </div>
-                      <div className={cl(styles.itemsLeftCheckout__check, styles.checkItems)}>
-                        <input type="checkbox" id="privateHouse" value="" />
-                        <label htmlFor="privateHouse">
-                          Частный дом
-                        </label>
-                      </div>
-                      <div className={styles.itemsLeftCheckout__four}>
-                        <div className={styles.itemsLeftCheckoutInput}>
-                          <input autoComplete="off" type="text" name="" id="" placeholder="Номер дома" className={styles.input} required />
-                          <div className={styles.inputErrorMessage}>Обязательное поле</div>
-                        </div>
-                        <div className={styles.itemsLeftCheckoutInput}>
-                          <input autoComplete="off" type="text" name="" id="" placeholder="Подъезд" className={styles.input} required />
-                          <div className={styles.inputErrorMessage}>Обязательное поле</div>
-                        </div>
-                        <div className={styles.itemsLeftCheckoutInput}>
-                          <input autoComplete="off" type="text" name="" id="" placeholder="Этаж" className={styles.input} required />
-                          <div className={styles.inputErrorMessage}>Обязательное поле</div>
-                        </div>
-                        <div className={styles.itemsLeftCheckoutInput}>
-                          <input autoComplete="off" type="text" name="" id="" placeholder="Квартира" className={styles.input} required />
-                          <div className={styles.inputErrorMessage}>Обязательное поле</div>
-                        </div>
-                      </div>
-                      <div className={styles.itemsLeftCheckoutText}>
-                        <textarea name="" id="" cols={20} rows={4} placeholder="Комментарий к доставке" className={styles.textarea}></textarea>
-                      </div>
-                    </div>
-                  }
-                  {
-                    formState.deliveryMethod === 'delivery1' &&
-                    <div className={cl(styles.leftCheckout__items, styles.itemsLeftCheckout)}>
-                      <h2 className={styles.itemsLeftCheckout__title}>Дата доставки</h2>
-                      <div className={styles.itemsLeftCheckout__two}>
-                        <div className={styles.itemsLeftCheckoutInput}>
-                          <input autoComplete="off" type="date" name="dateDelivery" id="dateDelivery" onChange={handler} placeholder="Дата" className={styles.input} required />
-                          <div className={styles.inputErrorMessage}>Обязательное поле</div>
-                        </div>
-                        {/* <div className={styles.itemsLeftCheckoutInput}>
-                          <input autoComplete="off" type="time" name="" id="" placeholder="Время" className={styles.input} required />
-                          <div className={styles.inputErrorMessage}>Обязательное поле</div>
-                        </div> */}
-                      </div>
-                    </div>
-                  }
+									{
+										values.deliveryMethod === 'delivery1' &&
+										<div className={cl(styles.leftCheckout__items, styles.itemsLeftCheckout)}>
+											<h2 className={styles.itemsLeftCheckout__title}>Адрес доставки</h2>
+											<div className={cl(styles.itemsLeftCheckoutInput, styles.itemsLeftCheckoutInput__adress)}>
+												<input autoComplete="off" type="text" name="" id="" placeholder="Населённый пункт, улица" className={styles.input} required />
+												<div className={styles.inputErrorMessage}>Обязательное поле</div>
+											</div>
+											<div className={cl(styles.itemsLeftCheckout__check, styles.checkItems)}>
+												<input type="checkbox" id="privateHouse" value="" />
+												<label htmlFor="privateHouse">
+													Частный дом
+												</label>
+											</div>
+											<div className={styles.itemsLeftCheckout__four}>
+												<div className={styles.itemsLeftCheckoutInput}>
+													<Field autoComplete="off" type="text" name="houseNumber" id="" placeholder="Номер дома" className={styles.input} required />
+													{errors.houseNumber && touched.houseNumber ? (
+														<div className={styles.inputErrorMessage}>{errors.houseNumber}</div>
+													) : null}
+												</div>
+												<div className={styles.itemsLeftCheckoutInput}>
+													<Field autoComplete="off" type="text" name="entrance" id="" placeholder="Подъезд" className={styles.input} required />
+													<div className={styles.inputErrorMessage}>Обязательное поле</div>
+												</div>
+												<div className={styles.itemsLeftCheckoutInput}>
+													<Field autoComplete="off" type="text" name="floor" id="" placeholder="Этаж" className={styles.input} required />
+													<div className={styles.inputErrorMessage}>Обязательное поле</div>
+												</div>
+												<div className={styles.itemsLeftCheckoutInput}>
+													<Field autoComplete="off" type="text" name="flat" id="" placeholder="Квартира" className={styles.input} required />
+													<div className={styles.inputErrorMessage}>Обязательное поле</div>
+												</div>
+											</div>
+											<div className={styles.itemsLeftCheckoutText}>
+											<Field
+													name="textarea"
+													required
+													render={({ field }) => (
+														<textarea name="textarea" id="" cols={20} rows={4} placeholder="Комментарий к доставке" className={styles.textarea}></textarea>
+													)}
+												/>
+											</div>
+										</div>
+									}
+									{
+										values.deliveryMethod === 'delivery1' &&
+										<div className={cl(styles.leftCheckout__items, styles.itemsLeftCheckout)}>
+											<h2 className={styles.itemsLeftCheckout__title}>Дата доставки</h2>
+											<div className={styles.itemsLeftCheckout__two}>
+												<div className={styles.itemsLeftCheckoutInput}>
+													<input autoComplete="off" type="date" name="dateDelivery" id="dateDelivery" placeholder="Дата" className={styles.input} required />
+													<div className={styles.inputErrorMessage}>Обязательное поле</div>
+												</div>
+												{/* <div className={styles.itemsLeftCheckoutInput}>
+													<input autoComplete="off" type="time" name="" id="" placeholder="Время" className={styles.input} required />
+													<div className={styles.inputErrorMessage}>Обязательное поле</div>
+												</div> */}
+											</div>
+										</div>
+									}
                   <div className={cl(styles.leftCheckout__items, styles.itemsLeftCheckout)}>
                     <h2 className={styles.itemsLeftCheckout__title}>Способы оплаты</h2>
                     <div className={styles.itemsLeftCheckout__content}>
                       <div className={cl(styles.itemsLeftCheckout__pay, styles.payMethod, styles.payMethod__credit)}>
-                        <input type="radio" name="payMethod" value="card" id="card" onClick={handler} defaultChecked={formState.payMethod === 'card' ? true : false} />
+                        <Field type="radio" name="payMethod" value="card" id="card" />
                         <label htmlFor="card">
                           <span className={styles.payMethod__title}>Картой на сайте</span>
                           <span className={styles.payMethod__img}>
@@ -185,7 +243,7 @@ const Checkout:FC<CheckoutProps> = (props) => {
                         </label>
                       </div>
                       <div className={cl(styles.itemsLeftCheckout__pay, styles.payMethod, styles.payMethod__cash)}>
-                        <input type="radio" name="payMethod" value="cash" id="cash" onClick={handler} defaultChecked={formState.payMethod === 'cash' ? true : false} />
+                        <Field type="radio" name="payMethod" value="cash" id="cash" />
                         <label htmlFor="cash">
                           <span className={styles.payMethod__title}>Наличными курьеру</span>
                           <span className={styles.payMethod__img}>При получении заказа</span>
@@ -207,7 +265,7 @@ const Checkout:FC<CheckoutProps> = (props) => {
                       <div className={styles.totalRightCart__title}>Итого</div>
                       <div className={styles.totalRightCart__number}><span>{cartSumm.toString().replace(/(\d{1,3}(?=(?:\d\d\d)+(?!\d)))/g, "$1" + ' ')}</span> ₽</div>
                     </div>
-                    <button type="submit" onClick={submitHandler} className={styles.rightCartPage__submit}>
+                    <button type="submit" className={styles.rightCartPage__submit}>
                       Подтвердить заказ
                     </button>
                     <div className={styles.rightCartPage__desc}>Нажимая кнопку, я даю согласие на <Link href="/">обработку персональных данных</Link></div>
