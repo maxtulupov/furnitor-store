@@ -77,3 +77,16 @@ export interface SliceCartState {
 export interface SliceState {
   cart: SliceCartState
 }
+
+
+export interface FormInputsValue {
+  name: string,
+  phone: string,
+  email: string,
+	deliveryMethod?: string,
+	payMethod?: string,
+	houseNumber?: string,
+	textarea?: string,
+  storeItems?: SliceCartItem[],
+  cartSumm?: number
+}

@@ -4,41 +4,31 @@ import styles from "../Checkout/Checkout.module.scss"
 import cl from "classnames";
 import Link from "next/link";
 import { FC, useState, useEffect } from 'react';
-import { CatListAside, NaviLinks, SliceCartItem, SliceState } from "../../../../types";
-import { useSelector } from "react-redux";
+import { CatListAside, FormInputsValue, NaviLinks, SliceCartItem, SliceState } from "../../../../types";
+import { useDispatch, useSelector } from "react-redux";
 import CheckoutItem from "./CheckoutItem";
 
 import InputMask from 'react-input-mask';
 
-import { Field, Formik } from 'formik';
+import { Field, Form, Formik, FormikErrors, FormikValues } from 'formik';
+
+import { useRouter } from "next/router";
+import { setCookie } from 'cookies-next';
+import { clearItems } from "../../../redux/cart/slice";
 
 interface CheckoutProps {
   naviLinks: NaviLinks[],
   catList: CatListAside[]
 }
 
-interface FormStateProps {
-  name: string,
-  phone: string,
-  email: string,
-  deliveryMethod: string,
-  adress: string,
-  dateDelivery?: string,
-  payMethod: string
-}
-
-interface FormInputsValue {
-  name: string,
-  phone: string,
-  email: string,
-	deliveryMethod: string,
-	payMethod: string,
-	houseNumber: string
-}
-
 const Checkout:FC<CheckoutProps> = (props) => {
   const storeItems = useSelector<SliceState, SliceCartItem[]>((state) => state.cart.items);
   const cartSumm = useSelector<SliceState>((state) => state.cart.totalPrice);
+
+  const router = useRouter();
+
+  const dispatch = useDispatch();
+
 
 	const initialValues: FormInputsValue = {
 		name: '',
@@ -46,21 +36,12 @@ const Checkout:FC<CheckoutProps> = (props) => {
     email: '',
 		deliveryMethod: 'delivery1',
 		payMethod: 'card',
-		houseNumber: ''
+		houseNumber: '',
+		textarea: ''
 	}
 
-
-  const submitHandler = () => {
-
-  };
-
-	const validate = (values?: FormInputsValue) => {
-		const errors = {
-			name: '',
-    	phone: '',
-    	email: '',
-			houseNumber: '',
-		};
+	const validate = (values: FormikValues) => {
+		const errors: FormikErrors<FormikValues> = {};
 
 		if (!values.name) {
 			errors.name = 'Это обязательное поле';
@@ -78,8 +59,6 @@ const Checkout:FC<CheckoutProps> = (props) => {
 			errors.email = 'Неверный email адрес';
 		}
 	
-		//...
-	
 		return errors;
 	};
 
@@ -95,6 +74,7 @@ const Checkout:FC<CheckoutProps> = (props) => {
   // useEffect(() => {
   //   console.log(formState);
   // }, [formState])
+  
 
 	return (
 		<Layout naviLinks={props.naviLinks} catList={props.catList}>
@@ -106,12 +86,18 @@ const Checkout:FC<CheckoutProps> = (props) => {
 							initialValues={initialValues}
 							validate={validate}
 							onSubmit={(values, actions) => {
-								
-								console.log(values);
+
+                setCookie('orderValues', '');
+                setCookie('orderValues', JSON.stringify({...values, storeItems, cartSumm}));
+
+                dispatch(clearItems);
+                console.log(dispatch(clearItems));
+
+                // router.replace('/order');
 							}}
 						>
             {({ errors, touched, values }) => (
-              <form className={styles.checkout__content}>
+              <Form className={styles.checkout__content}>
                 <div className={cl(styles.checkout__left, styles.leftCheckout)}>
                   <h1 className={styles.checkout__title}>Оформление заказа</h1>
                   <div className={cl(styles.leftCheckout__items, styles.itemsLeftCheckout)}>
@@ -124,10 +110,8 @@ const Checkout:FC<CheckoutProps> = (props) => {
 											) : null}
                       </div>
                       <div className={styles.itemsLeftCheckoutInput}>
-												<Field
-													name="phone"
-													required
-													render={({ field }) => (
+												<Field name="phone" required >
+                          {({ field }) => (
 														<InputMask
 															{...field}
 															mask="+7\(999)-999-99-99"
@@ -137,7 +121,7 @@ const Checkout:FC<CheckoutProps> = (props) => {
 															required
 														/>
 													)}
-												/>
+                        </Field>
 												{errors.phone && touched.phone ? (
 												<div className={styles.inputErrorMessage}>{errors.phone}</div>
 											) : null}
@@ -204,13 +188,11 @@ const Checkout:FC<CheckoutProps> = (props) => {
 												</div>
 											</div>
 											<div className={styles.itemsLeftCheckoutText}>
-											<Field
-													name="textarea"
-													required
-													render={({ field }) => (
-														<textarea name="textarea" id="" cols={20} rows={4} placeholder="Комментарий к доставке" className={styles.textarea}></textarea>
-													)}
-												/>
+											<Field name="textarea">
+                        {({ field }) => (
+                          <textarea {...field} id="" cols={20} rows={4} placeholder="Комментарий к доставке" className={styles.textarea}></textarea>
+                        )}
+                      </Field>
 											</div>
 										</div>
 									}
@@ -271,7 +253,7 @@ const Checkout:FC<CheckoutProps> = (props) => {
                     <div className={styles.rightCartPage__desc}>Нажимая кнопку, я даю согласие на <Link href="/">обработку персональных данных</Link></div>
                   </div>
                 </div>
-              </form>
+              </Form>
             )}
             </Formik>
           </div>
