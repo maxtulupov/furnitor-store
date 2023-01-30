@@ -347,7 +347,6 @@
   line-height: 100%;
   font-feature-settings: 'pnum' on, 'lnum' on;
   width: 100%;
-
   padding: 18px 20px;
   border: none;
   outline: none;
@@ -356,6 +355,7 @@
   border-radius: 8px;
   color: #1D1D1D;
   resize: none;
+  font-family: "Raleway";
   &::placeholder {
     color: #A0A0A0;
   }

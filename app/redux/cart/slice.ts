@@ -62,12 +62,12 @@ const cartSlice = createSlice({
 
       saveToCookie(state);
     },
-    clearItems(state) {
+    clearItems(state, action: PayloadAction<SliceCartItem>) {
       state.items = [];
       state.totalPrice = 0;
 
       saveToCookie(state);
-    },
+    }
   },
 });
 

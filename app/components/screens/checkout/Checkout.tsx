@@ -3,14 +3,13 @@ import Breadcrumbs from "../../ui/breadcrumbs/Breadcrumbs";
 import styles from "../Checkout/Checkout.module.scss"
 import cl from "classnames";
 import Link from "next/link";
-import { FC, useState, useEffect } from 'react';
-import { CatListAside, FormInputsValue, NaviLinks, SliceCartItem, SliceState } from "../../../../types";
+import { FC } from 'react';
+import { CatListAside, NaviLinks, SliceCartItem, SliceState } from "../../../../types";
 import { useDispatch, useSelector } from "react-redux";
 import CheckoutItem from "./CheckoutItem";
 
 import InputMask from 'react-input-mask';
-
-import { Field, Form, Formik, FormikErrors, FormikValues } from 'formik';
+import { Field, Form, Formik, FormikValues } from 'formik';
 
 import { useRouter } from "next/router";
 import { setCookie } from 'cookies-next';
@@ -29,19 +28,24 @@ const Checkout:FC<CheckoutProps> = (props) => {
 
   const dispatch = useDispatch();
 
-
-	const initialValues: FormInputsValue = {
+	const initialValues: FormikValues = {
 		name: '',
     phone: '',
     email: '',
 		deliveryMethod: 'delivery1',
+    street: '',
+    privateHouse: false,
 		payMethod: 'card',
 		houseNumber: '',
-		textarea: ''
+    entrance: '',
+    floor: '',
+    flat: '',
+		textarea: '',
+    dateDelivery: ''
 	}
 
 	const validate = (values: FormikValues) => {
-		const errors: FormikErrors<FormikValues> = {};
+		const errors: FormikValues = {};
 
 		if (!values.name) {
 			errors.name = 'Это обязательное поле';
@@ -55,27 +59,17 @@ const Checkout:FC<CheckoutProps> = (props) => {
 	
 		if (!values.email) {
 			errors.email = 'Укажите вашу почту';
-		} else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+		} else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email.toString())) {
 			errors.email = 'Неверный email адрес';
 		}
+
+    // if (!values.street) {
+		// 	errors.street = 'Это обязательное поле';
+		// }
 	
 		return errors;
 	};
-
-  // name: 'Максим',
-  //   phone: '+77777778778',
-  //   email: 'sibir@sibir.ru',
-  //   deliveryMethod: 'pickUp',
-  //   adress: 'sdsd',
-  //   dateDelivery: '',
-  //   timeDelivery: '',
-  //   payMethod: 'sitePay'
-
-  // useEffect(() => {
-  //   console.log(formState);
-  // }, [formState])
   
-
 	return (
 		<Layout naviLinks={props.naviLinks} catList={props.catList}>
 			<main className="main">
@@ -90,10 +84,8 @@ const Checkout:FC<CheckoutProps> = (props) => {
                 setCookie('orderValues', '');
                 setCookie('orderValues', JSON.stringify({...values, storeItems, cartSumm}));
 
-                dispatch(clearItems);
-                console.log(dispatch(clearItems));
-
-                // router.replace('/order');
+                router.replace('/order');
+                setTimeout(() => dispatch(clearItems()), 1000)
 							}}
 						>
             {({ errors, touched, values }) => (
@@ -105,9 +97,7 @@ const Checkout:FC<CheckoutProps> = (props) => {
                     <div className={styles.itemsLeftCheckout__two}>
                       <div className={styles.itemsLeftCheckoutInput}>
                         <Field autoComplete="off" type="text" name="name" placeholder="Имя" className={cl(styles.input, errors.name && touched.name ? styles.inputError : null)} required />
-												{errors.name && touched.name ? (
-												<div className={styles.inputErrorMessage}>{errors.name}</div>
-											) : null}
+												{errors.name && touched.name && <div className={styles.inputErrorMessage}>{errors.name.toString()}</div>}
                       </div>
                       <div className={styles.itemsLeftCheckoutInput}>
 												<Field name="phone" required >
@@ -122,16 +112,12 @@ const Checkout:FC<CheckoutProps> = (props) => {
 														/>
 													)}
                         </Field>
-												{errors.phone && touched.phone ? (
-												<div className={styles.inputErrorMessage}>{errors.phone}</div>
-											) : null}
+												{errors.phone && touched.phone && <div className={styles.inputErrorMessage}>{errors.phone.toString()}</div>}
                       </div>
                     </div>
                     <div className={cl(styles.itemsLeftCheckoutInput, styles.itemsLeftCheckoutInput__email)}>
                       <Field type="email" name="email" id="" placeholder="Почта" className={cl(styles.input, { [styles.inputError]: errors.email && touched.email} )} required />
-											{errors.email && touched.email ? (
-												<div className={styles.inputErrorMessage}>{errors.email}</div>
-											) : null}
+											{errors.email && touched.email && <div className={styles.inputErrorMessage}>{errors.email.toString()}</div>}
                     </div>
                   </div>
                   <div className={cl(styles.leftCheckout__items, styles.itemsLeftCheckout)}>
@@ -158,11 +144,11 @@ const Checkout:FC<CheckoutProps> = (props) => {
 										<div className={cl(styles.leftCheckout__items, styles.itemsLeftCheckout)}>
 											<h2 className={styles.itemsLeftCheckout__title}>Адрес доставки</h2>
 											<div className={cl(styles.itemsLeftCheckoutInput, styles.itemsLeftCheckoutInput__adress)}>
-												<input autoComplete="off" type="text" name="" id="" placeholder="Населённый пункт, улица" className={styles.input} required />
-												<div className={styles.inputErrorMessage}>Обязательное поле</div>
+												<Field autoComplete="off" type="text" name="street" placeholder="Улица" className={cl(styles.input, { [styles.inputError]: errors.street && touched.street} )} required />
+                        {errors.street && touched.street && <div className={styles.inputErrorMessage}>{errors.street.toString()}</div>}
 											</div>
 											<div className={cl(styles.itemsLeftCheckout__check, styles.checkItems)}>
-												<input type="checkbox" id="privateHouse" value="" />
+												<Field type="checkbox" id="privateHouse" name="privateHouse" />
 												<label htmlFor="privateHouse">
 													Частный дом
 												</label>
@@ -170,22 +156,25 @@ const Checkout:FC<CheckoutProps> = (props) => {
 											<div className={styles.itemsLeftCheckout__four}>
 												<div className={styles.itemsLeftCheckoutInput}>
 													<Field autoComplete="off" type="text" name="houseNumber" id="" placeholder="Номер дома" className={styles.input} required />
-													{errors.houseNumber && touched.houseNumber ? (
-														<div className={styles.inputErrorMessage}>{errors.houseNumber}</div>
-													) : null}
+													{errors.houseNumber && touched.houseNumber && <div className={styles.inputErrorMessage}>{errors.houseNumber.toString()}</div>}
 												</div>
-												<div className={styles.itemsLeftCheckoutInput}>
-													<Field autoComplete="off" type="text" name="entrance" id="" placeholder="Подъезд" className={styles.input} required />
-													<div className={styles.inputErrorMessage}>Обязательное поле</div>
-												</div>
-												<div className={styles.itemsLeftCheckoutInput}>
-													<Field autoComplete="off" type="text" name="floor" id="" placeholder="Этаж" className={styles.input} required />
-													<div className={styles.inputErrorMessage}>Обязательное поле</div>
-												</div>
-												<div className={styles.itemsLeftCheckoutInput}>
-													<Field autoComplete="off" type="text" name="flat" id="" placeholder="Квартира" className={styles.input} required />
-													<div className={styles.inputErrorMessage}>Обязательное поле</div>
-												</div>
+                        {
+                          !values.privateHouse && 
+                          <>
+                            <div className={styles.itemsLeftCheckoutInput}>
+                              <Field autoComplete="off" type="text" name="entrance" id="" placeholder="Подъезд" className={styles.input} required />
+                              <div className={styles.inputErrorMessage}>Обязательное поле</div>
+                            </div>
+                            <div className={styles.itemsLeftCheckoutInput}>
+                              <Field autoComplete="off" type="text" name="floor" id="" placeholder="Этаж" className={styles.input} required />
+                              <div className={styles.inputErrorMessage}>Обязательное поле</div>
+                            </div>
+                            <div className={styles.itemsLeftCheckoutInput}>
+                              <Field autoComplete="off" type="text" name="flat" id="" placeholder="Квартира" className={styles.input} required />
+                              <div className={styles.inputErrorMessage}>Обязательное поле</div>
+                            </div>
+                          </>
+                        }
 											</div>
 											<div className={styles.itemsLeftCheckoutText}>
 											<Field name="textarea">
@@ -202,7 +191,11 @@ const Checkout:FC<CheckoutProps> = (props) => {
 											<h2 className={styles.itemsLeftCheckout__title}>Дата доставки</h2>
 											<div className={styles.itemsLeftCheckout__two}>
 												<div className={styles.itemsLeftCheckoutInput}>
-													<input autoComplete="off" type="date" name="dateDelivery" id="dateDelivery" placeholder="Дата" className={styles.input} required />
+                          <Field name="dateDelivery">
+                            {({ field }) => (
+                              <input {...field} type="date" className={styles.input} />
+                            )}
+                          </Field>
 													<div className={styles.inputErrorMessage}>Обязательное поле</div>
 												</div>
 												{/* <div className={styles.itemsLeftCheckoutInput}>

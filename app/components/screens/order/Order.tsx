@@ -3,9 +3,11 @@ import Breadcrumbs from "../../ui/breadcrumbs/Breadcrumbs";
 import styles from "../order/Order.module.scss"
 import cl from "classnames";
 import { FC, useState, useEffect } from 'react';
-import { CatListAside, FormInputsValue, NaviLinks } from "../../../../types";
-
+import { CatListAside, NaviLinks } from "../../../../types";
 import Cookies from "js-cookie"
+import { FormikValues } from "formik";
+import { useRouter } from 'next/router';
+import { setCookie } from "cookies-next";
 
 interface OrderProps {
   naviLinks: NaviLinks[],
@@ -14,32 +16,49 @@ interface OrderProps {
 
 const Order:FC<OrderProps> = (props) => {
 
-  const [orderValues, setOrderValues] = useState<FormInputsValue>({
+  const router = useRouter();
+
+  const [orderValues, setOrderValues] = useState<FormikValues>({
     name: '',
     phone: '',
     email: '',
-    deliveryMethod: 'delivery1',
-    payMethod: 'card',
-    houseNumber: '',
-    textarea: '',
+		deliveryMethod: 'delivery1',
+    street: '',
+    privateHouse: false,
+		payMethod: 'card',
+		houseNumber: '',
+    entrance: '',
+    floor: '',
+    flat: '',
+		textarea: ''
   });
 
 
-  const initialValues: FormInputsValue = {
+  const initialValues: FormikValues = {
 		name: '',
     phone: '',
     email: '',
 		deliveryMethod: 'delivery1',
+    street: '',
+    privateHouse: false,
 		payMethod: 'card',
 		houseNumber: '',
+    entrance: '',
+    floor: '',
+    flat: '',
 		textarea: ''
 	}
 
   useEffect(() => {
     const orderData = Cookies.getJSON('orderValues');
-    console.log(orderData);
     setOrderValues(orderData);
-  }, [])
+
+    setTimeout(() => setCookie('orderValues', ''), 3000)
+
+    if (orderData === '') {
+      router.replace('/');
+    }
+  }, [router])
 
 	return (
 		<Layout naviLinks={props.naviLinks} catList={props.catList}>
@@ -64,7 +83,11 @@ const Order:FC<OrderProps> = (props) => {
                 </div>
                 <div className={cl(styles.order__item, styles.itemOrder)}>
                   <div className={styles.itemOrder__name}>Способ доставки</div>
-                  <div className={styles.itemOrder__value}>{orderValues.deliveryMethod}</div>
+                  <div className={styles.itemOrder__value}>
+                    {
+                      orderValues.deliveryMethod === 'delivery1' ? 'Доставка' : 'Самовывоз' 
+                    }
+                  </div>
                 </div>
 
                 {
@@ -72,11 +95,21 @@ const Order:FC<OrderProps> = (props) => {
                   <>
                     <div className={cl(styles.order__item, styles.itemOrder)}>
                       <div className={styles.itemOrder__name}>Адрес доставки</div>
-                      <div className={styles.itemOrder__value}>Макс</div>
+                      <div className={styles.itemOrder__value}>
+                        {`
+                          Улица - ${orderValues.street}
+                          дом - ${orderValues.houseNumber}
+                          ${!orderValues.privateHouse && 
+                            "подъезд -" + orderValues.entrance +
+                            "этаж -" + orderValues.floor +
+                            " квартира - " + orderValues.flat
+                          }
+                        `}
+                      </div>
                     </div>
                     <div className={cl(styles.order__item, styles.itemOrder)}>
                       <div className={styles.itemOrder__name}>Дата доставки</div>
-                      <div className={styles.itemOrder__value}>Макс</div>
+                      <div className={styles.itemOrder__value}>{orderValues.dateDelivery}</div>
                     </div>
                   </>
                 }
@@ -96,6 +129,14 @@ const Order:FC<OrderProps> = (props) => {
                     }
                   </div>
                 </div>
+
+                {
+                  orderValues.textarea !== 'Пусто' && 
+                  <div className={cl(styles.order__item, styles.itemOrder)}>
+                    <div className={styles.itemOrder__name}>Комментарий</div>
+                    <div className={styles.itemOrder__value}>{orderValues.textarea}</div>
+                  </div>
+                }
               </div>
               <div className={cl(styles.order__right, styles.rightOrder)}>
                 <div className={cl(styles.order__products, styles.productsOrder)}>
