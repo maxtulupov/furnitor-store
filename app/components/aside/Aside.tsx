@@ -20,7 +20,7 @@ const Aside:FC<AsideProps> = ({isCatalogOpen, setIsCatalogOpen, catList}) => {
 			<aside className={styles.mainAside}>
 				<div className={styles.mainAside__closeBtn} onClick={() => setIsCatalogOpen(!isCatalogOpen)}></div>
 				<Link href="/" className={styles.mainAside__logo}>
-					<Image src={logo} alt="Логотип" />
+					<Image src={logo} alt="Логотип" priority={true} sizes="180" />
 				</Link>
 				<div className={cl(styles.mainAside__menu, styles.leftMenu)}>
 					<ul className={styles.leftMenu__list}>

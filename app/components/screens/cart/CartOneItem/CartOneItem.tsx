@@ -18,7 +18,7 @@ const CartOneItem:FC<SliceCartItem> = (props) => {
 		<div className={cl(styles.cartPage__item, styles.itemCartPage)}>
 			<div className={styles.itemCartPage__left}>
 			<Link href={`/catalog/${props.slug}`} className={styles.itemCartPage__img}>
-				<Image src={props.img} alt={props.title} fill />
+				<Image src={props.img} alt={props.title} sizes="100" fill />
 			</Link>
 			</div>
 			<div className={styles.itemCartPage__right}>
